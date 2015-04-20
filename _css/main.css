@@ -1,0 +1,16 @@
+body {
+	
+}
+
+label {
+	display: block;
+	margin-top: 10px;
+}
+
+input, select {
+	width: 100px;
+}
+
+footer {
+	background-color: #000;
+}

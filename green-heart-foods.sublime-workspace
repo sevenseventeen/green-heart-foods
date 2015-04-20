@@ -1,0 +1,721 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"compa",
+				"company_logo_large"
+			],
+			[
+				"pass",
+				"password"
+			],
+			[
+				"admin",
+				"admin_name"
+			],
+			[
+				"gener",
+				"general_user_result"
+			],
+			[
+				"INCLU",
+				"get_include_path"
+			],
+			[
+				"gree",
+				"green_heart_foods_logged_in"
+			],
+			[
+				"con",
+				"context"
+			],
+			[
+				"cm",
+				"company_logo_large"
+			],
+			[
+				"company_l",
+				"company_logo_small"
+			],
+			[
+				"company_log",
+				"company_logo_large"
+			],
+			[
+				"service",
+				"service_date"
+			],
+			[
+				"menu",
+				"menu_item_id"
+			],
+			[
+				"client",
+				"client_id"
+			],
+			[
+				"meal",
+				"meal_id"
+			],
+			[
+				"monday",
+				"monday_last_week"
+			],
+			[
+				"start",
+				"start_date"
+			],
+			[
+				"sta",
+				"start_date"
+			],
+			[
+				"is",
+				"isset"
+			],
+			[
+				"ser",
+				"service_date"
+			],
+			[
+				"st",
+				"start_date"
+			],
+			[
+				"data",
+				"data-server-image-path"
+			],
+			[
+				"e",
+				"event"
+			],
+			[
+				"a",
+				"action	Attr"
+			],
+			[
+				"fo",
+				"form	Tag"
+			],
+			[
+				"ses",
+				"session_start"
+			],
+			[
+				"sessio",
+				"session_register"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"clie",
+				"client_id"
+			],
+			[
+				"cli",
+				"client_id"
+			],
+			[
+				"curr",
+				"current_quantity"
+			],
+			[
+				"meals",
+				"meals_per_day"
+			],
+			[
+				"sl",
+				"selected"
+			],
+			[
+				"get",
+				"getDate"
+			],
+			[
+				"t",
+				"tomorrow"
+			],
+			[
+				"mon",
+				"month_number"
+			],
+			[
+				"end_m",
+				"end_month_number"
+			],
+			[
+				"c",
+				"clt	josh-console-log-text"
+			],
+			[
+				"strto",
+				"strtotime"
+			],
+			[
+				"clien",
+				"client-id"
+			],
+			[
+				"is_a",
+				"is_active"
+			],
+			[
+				"ar",
+				"arguments"
+			],
+			[
+				"li",
+				"link	Tag"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"Fetch",
+				"fetch_object"
+			],
+			[
+				"database",
+				"database_connection"
+			],
+			[
+				"ba",
+				"background-clip"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"borde",
+				"border-top"
+			],
+			[
+				"tr",
+				"transparent"
+			],
+			[
+				"padd",
+				"padding-bottom"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"marg",
+				"margin-left"
+			],
+			[
+				"ele",
+				"elementWidth"
+			],
+			[
+				"cur",
+				"currentClassName"
+			],
+			[
+				"colu",
+				"columnCount"
+			],
+			[
+				"col",
+				"columnCount"
+			],
+			[
+				"co",
+				"columnCount"
+			],
+			[
+				"row",
+				"rowCount"
+			],
+			[
+				"cou",
+				"columnCount"
+			],
+			[
+				"column",
+				"columnCount"
+			],
+			[
+				"left",
+				"leftOffset"
+			],
+			[
+				"top",
+				"topOffset"
+			],
+			[
+				"bor",
+				"border"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"slide",
+				"slidesArray"
+			],
+			[
+				"pa",
+				"partialPath"
+			],
+			[
+				"glob",
+				"globalConfiguration"
+			],
+			[
+				"te",
+				"text-transform"
+			],
+			[
+				"backgr",
+				"background-color"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"module",
+				"moduleName"
+			],
+			[
+				"bac",
+				"background-color"
+			],
+			[
+				"paddin",
+				"padding"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"lis",
+				"list-style-type"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 27.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 495.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_config",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login"
+	],
+	"file_history":
+	[
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/daily-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/weekly-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/User.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/create-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/weekly-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/daily-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/edit-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Messages.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Servers.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/create-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/create-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/like-menu-item.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/login.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/logout.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/update-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_config/config.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/index.php",
+		"/Applications/XAMPP/xamppfiles/etc/php.ini",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/login.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/login.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/login-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/global-header.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/login-green-heart-food.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/restrict-access-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/clients.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/login-form.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_javascript/main.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Image.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Database.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/global-configuration.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/create-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_css/main.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Meals.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Clients.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/database-connection.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/classes/Login.php",
+		"/Users/josh-knight/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/josh-knight/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/josh-knight/Library/Application Support/Sublime Text 3/Packages/User/JSON.sublime-settings",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/weekly-menu-client-non-admin.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/daily-menu-client-admin.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/weekly-menu-client-admin.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/create-server-database",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/create-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/weekly-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/edit-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login-green-heart",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/view-clients.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/create-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/green-heart-foods.sublime-project",
+		"/Applications/XAMPP/xamppfiles/htdocs/apache-server/green-heart-foods/hello.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/apache-server/green-heart-foods/green-heart-foods.sublime-project",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/require-main.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/global-header.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/css/global-header.css",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/masonry-column-test.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/custom-column-test.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/custom-column-test.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/includes/html-open.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/index-template.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/index.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/css/global.css",
+		"/Users/josh-knight/Documents/node-server/ecosystem/css/feature-carousel.css",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/global-header-02.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/global.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/css/custom-column-test.css",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/feature-carousel.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/global-header.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/masonry-column-test.ejs",
+		"/Users/josh-knight/Library/Application Support/Sublime Text 3/Packages/User/josh.sublime-snippet",
+		"/Users/josh-knight/Library/Application Support/Sublime Text 3/Packages/User/josh-snippets",
+		"/Users/josh-knight/Documents/node-server/ecosystem/css/masonry-column-test.css",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/module-column-test.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/column-test.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/css/column-test.css",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/column-test",
+		"/Users/josh-knight/Documents/node-server/ecosystem/package.json",
+		"/Users/josh-knight/Documents/node-server/ecosystem/Procfile",
+		"/Users/josh-knight/Documents/node-server/ecosystem/.gitignore",
+		"/Users/josh-knight/Documents/node-server/ecosystem/environment-instructions.pages",
+		"/Users/josh-knight/Documents/node-server/ecosystem/placeholder-data/slides.json",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/feature-carousel.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/includes/html-close.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/global-footer.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/css/global-footer.css",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/global-config.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/javascript/global-footer.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/node_modules/grunt-contrib-jshint/node_modules/jshint/src/reporters/jslint_xml.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/node_modules/grunt/node_modules/underscore.string/test/test_underscore/vendor/jslitmus.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/node_modules/grunt/node_modules/coffee-script/extras/jsl.conf",
+		"/Users/josh-knight/Documents/node-server/ecosystem/bower_components/modernizr/feature-detects/json.js",
+		"/Users/josh-knight/Documents/node-server/ecosystem/node_modules/ejs/Jakefile",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/page-template.handlebars",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/includes/global-footer.handlebars",
+		"/Users/josh-knight/.Trash/global-header.handlebars",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/module-template.handlebars",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/global-footer.handlebars",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/includes/html-close.handlebars",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/includes/html-open.handlebars",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/global-footer.handlebars.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/modules/global-header.handlebars.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/layouts/main.handlebars",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/page-template.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/README.md",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/module-template.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/includes/html-open-module-template.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/test-template.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/views/partials/includes/html-open-page-template.ejs",
+		"/Users/josh-knight/Documents/node-server/ecosystem/bower.json",
+		"/Users/josh-knight/Documents/node-server/index.js",
+		"/Users/josh-knight/Documents/node-server/package.json",
+		"/Users/josh-knight/Documents/node-server/node_modules/ejs/ejs.js",
+		"/Users/josh-knight/Documents/node-server/node_modules/ejs/ejs.min.js",
+		"/Users/josh-knight/Documents/node-server/legacy/ecosystem/bower.json",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global.js",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/require-main.js",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global-header.js",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global-config.js",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/views/partials/includes/html-open-page-template.ejs",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global-footer.js",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/views/partials/includes/html-close.ejs",
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/bower.json"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"USer",
+			"root",
+			"include_path",
+			"include_pa",
+			"not logged ",
+			"green_heart_food",
+			"global-header.php",
+			"is_user_logged_in",
+			"is_logged_in",
+			"UPDATE",
+			"client",
+			"new date group",
+			"Meals.php",
+			"Meals()",
+			"place",
+			"$this",
+			"lega",
+			"border-top",
+			"legacy",
+			"nav",
+			"li",
+			"siblin",
+			".global-header",
+			"global-header",
+			"555",
+			"<img src=\"images/column-test.jpg\" />",
+			" class=\"tile\"",
+			"has-image",
+			"<p>Tile",
+			">:",
+			"global-config",
+			"config.",
+			"config",
+			"id=\"Layer_1\" ",
+			"id=\"Layer_1\"",
+			"<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In  -->",
+			"<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+			"<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->",
+			"path class=\"test-fill\"",
+			"<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+			"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n			<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->",
+			"top-con",
+			"test",
+			"path",
+			"test",
+			"+",
+			"border-top",
+			".global-header li li a:hover",
+			".global-header ul ul",
+			".global-header li li a",
+			"vis",
+			"hover",
+			":after",
+			".global-header li li:after",
+			"vis",
+			"\"ignored_packages\":\n		[\n			\"Vintage\"\n		],",
+			"<div class=\"bullet\">&bull;</div>",
+			"global-navigation",
+			"header {",
+			"	\n",
+			"console.log(\"Ready\");",
+			"		console.log(\"Ready\");\n",
+			"  \n",
+			";*/\n",
+			"site-navigation",
+			".menu",
+			" class=\"GlobalHeader_MainMenuLink\"",
+			"</a> </li>",
+			"<li> <a",
+			" <",
+			" style=\"min-height: initial; top: 30px;\"",
+			"class=\"GlobalHeader_SubMenu\" ",
+			"style=\"min-height: initial; top: 30px;",
+			"class=\"GlobalHeader_SubMenu\" ",
+			"class=\"GlobalHeader_SubMenu\"",
+			";\n",
+			"bower_components/enquire/dist/e"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"global-header-02",
+			"<img src=\"/images/column-test/column-test.jpg\" />",
+			":",
+			"globalConfiguration.config.",
+			"globalConfiguration.config",
+			"global-configuration.config",
+			"",
+			"path class=\"test-fill\"",
+			"global-header",
+			"global-navigation",
+			"",
+			"</a></li>",
+			"<li><a",
+			"<",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "green-heart-foods.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 264.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
