@@ -14,12 +14,12 @@ $(document).ready(function() {
 		set_days_in_month();
 	});
 
-	$('.price-per-order-input').keyup(function(event){
+	$('.create-menu .price-per-order-input').keyup(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		update_item_price(current_class);
 	});
 
-	$('.serves-input').keyup(function(event){
+	$('.create-menu .serves-input').keyup(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		var input_value = $(this).val();
 		if(Math.floor(input_value) == input_value && $.isNumeric(input_value)) {
@@ -44,11 +44,11 @@ $(document).ready(function() {
 		update_item_price(current_class);
 	});
 
-	$('.preview-menu-button').click(function(event){
+	$('.create-menu .preview-menu-button').click(function(event){
 		$('.create-menu-form').submit();
 	});
 
-	$('select.server').change(function(event) {
+	$('.create-menu select.server').change(function(event) {
 		var image_path = $('option:selected', this).attr('data-server-image-path');
 		console.log(image_path);
 		$('.server-image').attr('src', '../'+image_path);

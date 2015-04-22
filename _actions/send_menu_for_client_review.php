@@ -8,4 +8,4 @@ require_once(SERVER_ROOT."/_classes/Messages.php");
 $menu = new Menu();
 $client_id = $_GET['client-id'];
 $start_date = $_GET['start-date'];
-$menu->send_meal_to_client($client_id, $start_date);
+$menu->send_menu_for_client_review($client_id, $start_date);

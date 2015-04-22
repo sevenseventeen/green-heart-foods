@@ -1,5 +1,5 @@
 <!-- <pre> -->
-<h1>Create Menu</h1>
+<h1>Edit Daily Menu</h1>
 
 <?php
 	$page_class = 'create-menu';

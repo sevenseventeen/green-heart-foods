@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"clien",
+				"client-id"
+			],
+			[
+				"cli",
+				"client"
+			],
+			[
+				"sat",
+				"start_date"
+			],
+			[
+				"cle",
+				"client_id"
+			],
+			[
+				"me",
+				"menu_items"
+			],
+			[
 				"compa",
 				"company_logo_large"
 			],
@@ -116,10 +136,6 @@
 				"client_id"
 			],
 			[
-				"cli",
-				"client_id"
-			],
-			[
 				"curr",
 				"current_quantity"
 			],
@@ -154,10 +170,6 @@
 			[
 				"strto",
 				"strtotime"
-			],
-			[
-				"clien",
-				"client-id"
 			],
 			[
 				"is_a",
@@ -331,6 +343,38 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "admin/edit-daily-menu.php",
+			"settings":
+			{
+				"buffer_size": 509,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "admin/daily-menu.php",
+			"settings":
+			{
+				"buffer_size": 413,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "_classes/Menu.php",
+			"settings":
+			{
+				"buffer_size": 22262,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "admin/old-create-menu-form.php",
+			"settings":
+			{
+				"buffer_size": 4623,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -368,50 +412,56 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_config",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_javascript",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login"
 	],
 	"file_history":
 	[
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Menu.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/daily-menu.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/weekly-menu.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Client.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/User.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/create-menu.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/weekly-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/old-create-menu-form.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/old-create-menu-form",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/daily-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Menu.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/restrict-access-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/User.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/daily-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/create-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_javascript/main.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/global-header.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/logout.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/edit-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/create-client.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/clients.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/index.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/weekly-menu.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/restrict-access-green-heart-foods.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_config/config.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/send_menu_for_client_review.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/test-email.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Client.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Messages.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Servers.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/create-client.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/create-menu.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/like-menu-item.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/login.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/logout.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/update-client.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_config/config.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/index.php",
 		"/Applications/XAMPP/xamppfiles/etc/php.ini",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/login.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/login.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/clients/login.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/login-client.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/global-header.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_actions/login-green-heart-food.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/restrict-access-client.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/clients.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/login-form.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_javascript/main.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Image.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Database.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_includes/global-configuration.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/index.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/admin/create-client.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_css/main.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Meals.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/green-heart-foods/_classes/Clients.php",
@@ -497,13 +547,7 @@
 		"/Users/josh-knight/Documents/node-server/node_modules/ejs/ejs.min.js",
 		"/Users/josh-knight/Documents/node-server/legacy/ecosystem/bower.json",
 		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global.js",
-		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/require-main.js",
-		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global-header.js",
-		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global-config.js",
-		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/views/partials/includes/html-open-page-template.ejs",
-		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/global-footer.js",
-		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/views/partials/includes/html-close.ejs",
-		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/bower.json"
+		"/Users/josh-knight/Documents/node-server/legacy/module-library-ejs/javascript/require-main.js"
 	],
 	"find":
 	{
@@ -522,6 +566,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"$client_id",
+			"clie",
+			"$_SESSION['client_logged_in']",
+			"update",
+			"item_status_id",
 			"USer",
 			"root",
 			"include_path",
@@ -631,8 +680,125 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "admin/edit-daily-menu.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 509,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								29,
+								29
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "admin/daily-menu.php",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 413,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "_classes/Menu.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 22262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16379,
+								16379
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6219.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "admin/old-create-menu-form.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4623,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4108,
+								4118
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 605.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -713,7 +879,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 264.0,
+	"side_bar_width": 294.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

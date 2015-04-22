@@ -1,10 +1,13 @@
+<pre>
+
 <?php
-	
+    require_once("../_config/config.php");
+    require_once("../_includes/restrict-access-client.php");
+    require_once("../_includes/global-header.php");
     require_once("../_classes/Client.php");
     require_once("../_classes/Messages.php");
-    require_once("../_includes/global-header.php");
 	require_once("../_classes/Menu.php");
 	$menu = new Menu();
-	return $menu->get_daily_menu_page();
-
+	$context = $client_access_level;
+	return $menu->get_daily_menu_page($context);
 ?>

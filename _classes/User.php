@@ -175,26 +175,28 @@ class User {
         $_SESSION = array();
         session_destroy();
         Messages::add('You have been logged out.'); 
-        header('Location: ../admin/login.php');
+        header('Location: '.WEB_ROOT.'/login/');
     } 
 
     /* Check for Green Heart Food logged in status */
     
-    public function is_green_heart_foods_logged_in() {
+    public function get_green_heart_foods_access_level() {
         if (isset($_SESSION['green_heart_foods_logged_in']) AND $_SESSION['green_heart_foods_logged_in'] == 1) {
-            return true;
+            return 'green_heart_foods_admin';
         } else {
-            return false;    
+            header('Location: '.WEB_ROOT.'/login/');
         }
     }
 
     /* Check for client logged in status */
     
-    public function is_client_logged_in() {
-        if (isset($_SESSION['client_logged_in']) AND $_SESSION['client_logged_in'] == 1) {
-            return true;
+    public function get_client_access_level () {
+        if (isset($_SESSION['client_admin_logged_in']) AND $_SESSION['client_admin_logged_in'] == 1) {
+            return 'client_admin';
+        } else if (isset($_SESSION['client_general_logged_in']) AND $_SESSION['client_general_logged_in'] == 1) {
+            return 'client_general';
         } else {
-            return false;    
+            header('Location: '.WEB_ROOT.'/login/');
         }
     }
 

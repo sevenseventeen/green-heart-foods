@@ -1,13 +1,10 @@
-<!--View Clients Page
-List of current clients displayed from database
-Displayed as images.
-Create new client links to Create Client Page.
-Logos link to Client Page
-Remove client checkbox-->
-<!-- Remove links to Remove Client Page -->
+<pre>
+<h1>Clients Page</h1>
+
 <?php 
-	echo "<h1>Clients Page</h1>";
-	require_once("../_includes/global-header.php");
+	require_once("../_config/config.php");
+    require_once("../_includes/restrict-access-green-heart-foods.php");
+    require_once("../_includes/global-header.php");
 	require_once("../_classes/Client.php");
 	require_once("../_classes/Messages.php");
 	$client = new Client();
@@ -19,7 +16,7 @@ Remove client checkbox-->
 ?>
 
 <div class="message">
-	<?php echo "Flash Messages: " . Messages::render(); ?>
+	<?php Messages::render(); ?>
 </div>
 
 <a href="create-client.php">Create Client</a>

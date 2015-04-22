@@ -5,8 +5,8 @@ class Menu {
     private $database_connection = null;
     
     public function __construct() {
-        require_once("../_config/config.php");
         require_once("../_classes/Messages.php");
+        require_once("../_classes/Client.php");
         require_once("../_classes/Database.php");
         $database = new Database();
         $this->database_connection = $database->connect();
@@ -21,7 +21,9 @@ class Menu {
         echo $query->rowCount();
     }
     
+    
     /* Get Meal Types */
+
 
     public function get_meal_types() {
         $query = $this->database_connection->prepare("SELECT * FROM meals");
@@ -80,7 +82,6 @@ class Menu {
         // For images, use AJAX to upload the image and store the path in a hidden field for uploading.
         // TODO - Check for empty or incomplete fields.
         
-
         $service_date = $_POST['service_year'].'-'.$_POST['service_month'].'-'.$_POST['service_day'];
         $client_id = $_POST['client_id'];
         $meal_id = $_POST['meal_id'];
@@ -125,23 +126,12 @@ class Menu {
                 header("Location: ../admin/daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id");
             }
         }
-
-        // echo '<pre>POST ARRAY: ';
-        // print_r($_POST);
-        // $sth = $this->database_connection->prepare("SELECT * FROM meals");
-        // $sth->execute();
-        // $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-        // if(count($result) > 0) {
-        //     return $result;
-        // } else {
-        //     echo "Sorry, there was an error. Could not find any meal tyoes."; //TODO - Send as error.
-        //     exit();
-        // }
     }
 
-    public function get_daily_menu_page() {
+    public function get_daily_menu_page($context) {
 
         echo "<h1>Daily Menu - Determine Context</h1>";
+        echo "<h2>Context is: $context</h2>";
 
         $client_id = $_GET['client-id'];
         $service_date = $_GET['service-date'];
@@ -207,15 +197,17 @@ class Menu {
                 echo "Number of Servings: ".$result[$i]['number_of_servings'].'<br />';
                 echo "TODO - Add button, subtract button, special instructions.";
             }
+            echo "<p><a href='".WEB_ROOT."/admin/edit-daily-menu.php?client-id=$client_id'>Edit Daily Menu</a></p>";
         } else {
             echo '<p>Sorry, no menu items found.</p>';
         }
     }
 
 
-    public function get_weekly_menu_page() {
+    public function get_weekly_menu_page($context) {
 
         echo "<h1>Weekly Menu - Determine Context</h1>";
+        echo "<h2>Context is: $context</h2>";
 
         require_once("../_config/config.php");
         require_once("../_classes/Client.php");
@@ -290,6 +282,7 @@ class Menu {
         
         echo "<br /><br />***********************************<br /><br />";
         echo "<a href='".WEB_ROOT."/_actions/send-meal-to-client.php?client-id=$client_id&start-date=$start_date'>Send Meal to Client</a><br />";
+        // echo "<a href='#'>Edit Menu -- TODO Build this page to link to.</a><br />";
 
         // $startDate = 'Mon 2015-03-09';
         // $endDate = 'Mon 2017-02-05';
@@ -305,7 +298,15 @@ class Menu {
         // }
     }
 
-    public function send_meal_to_client($client_id, $start_date) {
+    public function send_menu_for_client_review ($client_id, $start_date) {
+        $user = new User();
+        $result = $user->get_client_users($client_id);
+        for ($i=0; $i < count($result); $i++) { 
+            if($result[$i]['user_type_id'] == 2) {
+                $client_admin_email = $result[$i]['cliet_name'];        
+            }
+        }
+        
         $end_date = date('Y-m-d', strtotime($start_date.' +6 days'));
         $arguments = [
             2,
@@ -316,21 +317,19 @@ class Menu {
         $query = $this->database_connection->prepare("UPDATE menu_items SET item_status_id = ? WHERE client_id = ? AND (service_date BETWEEN ? AND ?)");
         $query->execute($arguments);
         if ($query->rowCount() > 0 ){
-            $to_email  = 'aidan@example.com';
-            $subject = 'Birthday Reminders for August';
+            $link = WEB_ROOT . "/clients/weekly-menu.php?client-id=$client_id&start-date=$start_date";
+            $to_email  = $client_admin_email; // TODO - Get admin email
+            $subject = 'Your Weekly Menu is Ready';
             $message = '
                 <html>
-                    <head>
-                        <title>Birthday Reminders for August</title>
-                    </head>
                     <body>
                         <p>Hello! Your weekly menu is ready to review. Please click the link below to review, edit and confirm.</p>
-                        <a href="link">link</a>
+                        <a href=$link>$link</a>
                     </body>
                 </html>';
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $headers .= 'From: Green Heart Foods <'.FROM_EMAIL.'>' . "\r\n";
+            $headers .= 'From: Green Heart Foods <'.GREEN_HEART_FOODS_ADMIN_EMAIL.'>' . "\r\n";
             $sent = mail($to, $subject, $message, $headers);
             if($sent) {
                 echo "Email has been sent";
@@ -339,4 +338,145 @@ class Menu {
             }
         }
     }
+
+    public function send_menu_approval ($client_id, $start_date){
+        $client = new Client();
+        $result = $client->get_client($client_id);
+        $client_name = $result[0]['cliet_name'];
+        $end_date = date('Y-m-d', strtotime($start_date.' +6 days'));
+        $arguments = [
+            3,
+            $client_id,
+            $start_date,
+            $end_date
+        ];
+        $query = $this->database_connection->prepare("UPDATE menu_items SET item_status_id = ? WHERE client_id = ? AND (service_date BETWEEN ? AND ?)");
+        $query->execute($arguments);
+        if ($query->rowCount() > 0 ){
+            $link = WEB_ROOT . "/admin/weekly-menu.php?client-id=$client_id&start-date=$start_date";
+            $to_email  = GREEN_HEART_FOODS_ADMIN_EMAIL;
+            $subject = "A Menu Has Been Approved by $client_name";
+            $message = "
+                <html>
+                    <body>
+                        <p>$client_name has approved a menu - please click below to review.</p>
+                        <a href=$link>$link</a>
+                    </body>
+                </html>";
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $headers .= 'From: Green Heart Foods <'.GREEN_HEART_FOODS_ADMIN_EMAIL.'>' . "\r\n";
+            $sent = mail($to, $subject, $message, $headers);
+            if($sent) {
+                echo "Email has been sent";
+            } else {
+                echo "Email has not been sent";
+            }
+        }
+    }
+
+
+
+
+
+    public function get_menu_form($client_id) {
+        $page_class = 'create-menu';
+        $start_month = date('F');
+        $start_month_number = date('m');
+        $end_month = date('F', strtotime('+1 month'));
+        $end_month_number = date('m', strtotime('+1 month'));
+        $start_year = date('Y');
+        $end_year = date('Y', strtotime('+1 year'));
+        $menu = new Menu();
+        $meal_types = $menu->get_meal_types();
+        $servers = new Servers();
+        $server_list = $servers->get_all_servers();
+        $client = new Client(); 
+        $result = $client->get_meals_per_day($client_id);
+        $meals_per_day = $result[0]['meals_per_day'];
+        $form = "";
+        $html = "";
+        $meal_type_options = "";
+        $server_list_options = "";
+        for ($i=0; $i < count($meal_types); $i++) { 
+            $meal_type_options .= "<option value=".$meal_types[$i]['meal_id'].">".$meal_types[$i]['meal_name']."</option>";
+        }
+        for ($i=0; $i < count($server_list); $i++) { 
+            $server_list_options .= '<option data-server-image-path='.$server_list[$i]['server_image_path'].' value='.$server_list[$i]['server_id'].'>'.$server_list[$i]['server_first_name'].' '.$server_list[$i]['server_last_name'].'</option>';
+        }
+        $html .= "<form class='create-menu-form' action='../_actions/create-menu.php' method='post'>";
+        $html .=    "<h3>Date</h3>";
+        $html .=    "<select name='service_month' class='month'>";
+        $html .=        "<option value='$start_month_number'>$start_month</option>";
+        $html .=        "<option value='$end_month_number'>$end_month</option>";
+        $html .=    "</select>";
+        $html .=    "<select name='service_day' class='day'></select>";
+        $html .=    "<select name='service_year' class='year'>";
+        $html .=        "<option value='$start_year'>$start_year</option>";
+        $html .=        "<option value='$end_year'>$end_year</option>";
+        $html .=    "</select>";
+        $html .=    "<h3>Meal Type</h3>";
+        $html .=    "<select name='meal_id'>";
+        $html .=        $meal_type_options;
+        $html .=    "</select>";
+        $html .=    "<h3>Meal Description</h3>";
+        $html .=    "<input name='meal_description' type='text' placeholder='Add Description Here' value='Meal Description' />";
+        $html .=    "<div>";
+        $html .=        "<div>";
+        $html .=            "<img width='20' class='server-image' src='../_images/server-placeholder.jpg' />";
+        $html .=            "<select class='server' name='server_id'>";
+        $html .=                "<option value='none'>Select Server</option>";
+        $html .=                    $server_list_options;
+        $html .=            "</select>";
+        $html .=        "</div>";
+        $html .=        "<div class='menu-image'>";
+        $html .=            "<img width='20' src='../_images/menu-image-placeholder.jpg' />";
+        $html .=            "<input type='file' />";
+        $html .=        "</div>";
+        $html .=    "</div>";
+        for ($i=0; $i < $meals_per_day; $i++) {
+            $form .= <<<FORM
+            <h1>----------------------------</h1>
+            <div data-increment-id="$i" class="menu-item menu-item-$i">
+                <input type="text" name="menu_item_name[$i]" value="Item Name $i" placeholder="Add Menu Item Name" />
+                <input type="text" name="ingredients[$i]" value="Ingredients $i" placeholder="Add Ingredients" />
+                <input type="text" name="special_notes[$i]" value="Notes $i" placeholder="Special Notes" />
+                <input type="checkbox" value="1" checked name="is_vegetarian[$i]"><label>Vegetarian</label>
+                <input type="checkbox" value="1" checked name="is_vegan[$i]"><label>Vegan</label>
+                <input type="checkbox" value="1" checked name="is_gluten_free[$i]"><label>Gluten Free</label>
+                <input type="checkbox" value="1" checked name="is_whole_grain[$i]"><label>Whole Grain</label>
+                <input type="checkbox" value="1" checked name="contains_nuts[$i]"><label>Contains Nuts</label>
+                <input type="checkbox" value="1" checked name="contains_soy[$i]"><label>Contains Soy</label>
+                <input type="checkbox" value="1" checked name="contains_shellfish[$i]"><label>Contains Shellfish</label>
+                <h3>Set Price per Order</h3>
+                <input class="price-per-order-input" name="price_per_order[$i]" type="text" placeholder="$0.00" />
+                <input class="serves-input" name="number_of_servings[$i]" type="text" placeholder="Serves 0" />
+                <p class="order-summary">
+                    <span class="quantity">0</span> Orders Serves 
+                    <span class="serves-output">0</span> 
+                    $<span class="price-per-order-output">0</span>
+                </p>
+                <input class="order-quantity" name="order_quantity[$i]" type="hidden" value="" />
+                <input name="meals_per_day" type="hidden" value="$i" />
+                <input type="hidden" name="client_id" value="$client_id" />
+                <input type="hidden" name="item_status_id" value="1" />
+                <a class="quantity-button subtract">Subtract</a>
+                <a class="quantity-button add">Add</a>
+            </div>
+FORM;
+        }
+        $html .= $form;
+        $html .= "</form>";
+        $html .= "<div class='order-summary'>";
+        $html .=    "<h1>Order Summary</h1>";
+        $html .=    "<p>";
+        $html .=        "<span class='total-number-of-orders'>0</span> Orders Serves";
+        $html .=        "<span class='total-people-served'>0</span> =";
+        $html .=        "<span class='total-cost'>0</span>";
+        $html .=    "</p>";
+        $html .=    "<button class='preview-menu-button'>Save and Preview</button>";
+        $html .= "</div>";
+        echo $html;
+    }
+
 }
