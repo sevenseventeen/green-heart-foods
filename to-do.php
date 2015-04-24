@@ -170,10 +170,10 @@
 
 <h3>login/index.php</h3>
 <ul>
-	<li>Add static page content</li>
+	<strike><li>Add static page content</li></strike>
 	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
 	<li>Review, clean and comment code</li>
 	<li>Logout after browser close?</li>
 </ul>
