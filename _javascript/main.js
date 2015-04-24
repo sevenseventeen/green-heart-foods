@@ -132,11 +132,21 @@ function set_days_in_month() {
 		} else {
 			leadingZeroDay = i;
 		}
-		if(i === tomorrow.getDate()) {
-			selected = "selected='selected'";
+		if($('.current_day_edit_mode').val() == 0) {
+			alert("EQ 0");
+			if(i === tomorrow.getDate()) {
+				selected = "selected='selected'";
+			} else {
+				selected = "";
+			}	
 		} else {
-			selected = "";
+			if($('.current_day_edit_mode').val() == i) {
+				selected = "selected='selected'";
+			} else {
+				selected = "";
+			}
 		}
+		
 		html += "<option "+selected+" value='"+leadingZeroDay+"'>"+i+"</option>";
 	};
 	$('select.day').html(html);

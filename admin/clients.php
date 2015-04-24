@@ -14,6 +14,11 @@
 		echo ' --- <a href="edit-client.php?client-id='.$result[$i]['client_id'].'">Edit</a><br />';
 	}
 ?>
+<?php 
+	require_once(SERVER_ROOT . '/_classes/User.php');
+	$user = new User();
+	echo "Display Name: ".$user->get_user_display_name();
+?>
 
 <div class="message">
 	<?php Messages::render(); ?>

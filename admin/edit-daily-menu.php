@@ -10,8 +10,10 @@
 	require_once("../_classes/Servers.php");
 	require_once("../_classes/Client.php");
 	$client_id = $_GET['client-id'];
+	$service_date = $_GET['service-date'];
+	$meal_id = $_GET['meal-id'];
 	$menu = new Menu();
-	$menu->get_menu_form($client_id);
+	$menu->get_menu_form($client_id, $service_date, $meal_id);
 ?>
 
 <footer>

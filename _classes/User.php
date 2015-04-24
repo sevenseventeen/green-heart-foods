@@ -29,7 +29,7 @@ class User {
                     $_POST['user_name'],
                     $_POST['password']
                 );
-                $query = $database_connection->prepare("SELECT * FROM users WHERE user_name = ? AND password = ?");
+                $query = $database_connection->prepare("SELECT * FROM users LEFT JOIN user_types ON users.user_type_id=user_types.user_type_id WHERE user_name = ? AND password = ?");
                 $query->execute($arguments);
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
                 if(count($result) === 1) {
@@ -37,6 +37,7 @@ class User {
                     $_SESSION['user_id'] = $result[0]['user_id'];
                     $_SESSION['user_name'] = $result[0]['user_name'];
                     $_SESSION['user_type_id'] = $result[0]['user_type_id'];
+                    $_SESSION['user_display_name'] = $result[0]['user_display_name'];
                     switch($result[0]['user_type_id']) {
                         case 1:
                             $_SESSION['green_heart_foods_logged_in'] = 1;
@@ -200,18 +201,29 @@ class User {
         }
     }
 
+    // public function get_user_display_name() {
+    //     if (isset($_SESSION['user_display_name'])) {
+    //         return $_SESSION['user_display_name'];
+    //     } else {
+    //         return null;
+    //     }
+    // }
+
     /* Get Login Form */
 
     public function get_login_form($context) {
         return <<<HTML
+            <h1>Log in to View Menus</h1>
             <form method="post" action="../_actions/login.php">
-                <label for="login_input_username">Username</label>
-                <input id="login_input_username" class="login_input" type="text" name="user_name" value="ghf" required />
-                <label for="login_input_password">Password</label>
-                <input id="login_input_password" class="login_input" type="password" name="password" autocomplete="off" value="ghf" required />
+                <input id="login_input_username" class="login_input" type="text" name="user_name" value="ghf" placeholder="username" required />
+                <input id="login_input_password" class="login_input" type="password" name="password" autocomplete="off" value="ghf" placeholder="password" required />
                 <input type="hidden" name="context" value="$context" />
-            <input type="submit"  name="login" value="Log in" />
-        </form>
+                <input type="submit"  name="login" value="Log in" />
+            </form>
+            <p>
+                Having trouble? Please contact your GHF contact.<br />
+                415-800-8910 or <a href="mailto:lisa@greenheartfoods.com">lisa@greenheartfoods.com</a>
+            </p>
 HTML;
     }
 }

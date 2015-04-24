@@ -1,5 +1,6 @@
 body {
-	
+	margin: 0;
+	padding: 0;
 }
 
 label {
@@ -12,5 +13,14 @@ input, select {
 }
 
 footer {
-	background-color: #000;
+	background-color: #34b67d;
+}
+
+.main_container {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.login_page .main_container {
+	background-color: #0e6552;
 }
