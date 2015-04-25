@@ -1,12 +1,23 @@
-<pre>
-<h1>Create Client</h1>
-
 <?php 
+	$page_class = 'create_client_page';
+	$page_title_detail = 'Create Client';
 	require_once("../_config/config.php");
-    require_once("../_includes/restrict-access-green-heart-foods.php");
-    require_once("../_includes/global-header.php");
-	require_once('../_classes/Client.php'); 
+    require_once(SERVER_ROOT . "/_includes/restrict-access-green-heart-foods.php");
+    require_once(SERVER_ROOT . "/_includes/global-header.php");
+	require_once(SERVER_ROOT . "/_classes/Client.php");
+	require_once(SERVER_ROOT . "/_classes/Messages.php");
 	$client = new Client();
-	$result = $client->get_client_form();
-	echo $result;
+	$client_form = $client->get_client_form();
 ?>
+
+<h1>Clients</h1>
+<h2>Edit Client</h2>
+<div class="message">
+	<?php Messages::render(); ?>
+</div>
+
+<div class="client_form">
+	<?php echo $client_form; ?>
+</div>
+
+<?php require_once(SERVER_ROOT . "/_includes/global-footer.php"); ?>

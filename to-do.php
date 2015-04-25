@@ -1,3 +1,9 @@
+<style type="text/css">
+	strike {
+		color: #aaa;
+	}
+</style>
+
 <h1>To-do List</h1>
 
 <h2>Green Heart Foods Context</h2>
@@ -10,31 +16,31 @@
 
 <h3>admin/clients.php</h3>
 <ul>
-	<li>Add static page content</li>
-	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
-	<li>Review, clean and comment code</li>
+	<strike><li>Add static page content</li></strike>
+	<strike><li>Review error message placement</li></strike>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
+	<strike><li>Review, clean and comment code</li></strike>
 	<li>Determine what to do with inactive clients.</li>
 </ul>
 
 <h3>admin/create-client.php</h3>
 <ul>
-	<li>Change ‘submit’ to ‘save’ and ‘cancel’</li>
-	<li>Add static page content</li>
-	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
-	<li>Review, clean and comment code</li>
+	<strike><li>Change ‘submit’ to ‘save’ and ‘cancel’</li></strike>
+	<strike><li>Add static page content</li></strike>
+	<strike><li>Review error message placement</li></strike>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
+	<strike><li>Review, clean and comment code</li></strike>
 </ul>
 
 <h3>admin/create-menu.php</h3>
 <ul>
-	<li>Add static page content</li>
-	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
-	<li>Review, clean and comment code</li>
+	<strike><li>Add static page content</li></strike>
+	<strike><li>Review error message placement</li></strike>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
+	<strike><li>Review, clean and comment code</li></strike>
 </ul>
 
 

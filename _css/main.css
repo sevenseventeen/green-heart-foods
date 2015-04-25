@@ -1,6 +1,12 @@
 body {
 	margin: 0;
 	padding: 0;
+	text-transform: uppercase;
+	background-color: #eee;
+}
+
+a {
+	text-decoration: none;
 }
 
 label {
@@ -9,18 +15,99 @@ label {
 }
 
 input, select {
-	width: 100px;
+
 }
 
 footer {
 	background-color: #34b67d;
 }
 
-.main_container {
-	max-width: 800px;
-	margin: 0 auto;
+h2 {
+	display: block;
+	height: 50px;
+	background-color: #84445e;
+	text-align: center;
+	color: #fff;
+	padding-top: 20px;
+	overflow: auto;
+	margin: 0;
 }
+
+.main_container {
+	max-width: 1224px;
+	margin: 0 auto;
+	border: 1px solid #ccc;
+}
+
+
+/* Login Page */
+
 
 .login_page .main_container {
 	background-color: #0e6552;
+}
+
+
+/* Clients Page */
+
+
+.clients_page .main_container { 
+	background-color: #016752;
+}
+
+.clients_page .client_list {
+	background-color: #fff;
+}
+
+.clients_page .client_result {
+	width: 300px;
+	border: 1px solid #ccc;
+}
+
+.clients_page .edit_button {
+	background-color: #ccc;
+	display: block;
+}
+
+.clients_page .add_client_button_container {
+	height: 80px;
+	background-color: #84445e;
+	padding-top: 40px;
+}
+
+.clients_page .add_client_button {
+	display: block;
+	width: 200px;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: #ff7a17;
+	margin: 0 auto;
+}
+
+
+/* Create Client Page */ 
+
+
+.create_client_page .main_container {
+	background-color: #0e6552;
+}
+
+.create_client_page h2 {
+	
+}
+
+.create_client_page .client_form {
+	background-color: #fff;
+}
+
+
+/* Create Menu Page */ 
+
+
+.create_menu_page h2 {
+	
+	
+	
+	
+	
 }

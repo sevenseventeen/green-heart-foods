@@ -8,7 +8,9 @@ class Menu {
         require_once("../_classes/Messages.php");
         require_once("../_classes/Client.php");
         require_once("../_classes/Database.php");
+        require_once("../_classes/Image.php");
         $database = new Database();
+        $this->image = new Image();
         $this->database_connection = $database->connect();
     }
 
@@ -77,18 +79,11 @@ class Menu {
     }
 
     public function create_menu() {
-
-        // TODO - Figure out logic for files.
-        // For images, use AJAX to upload the image and store the path in a hidden field for uploading.
-        // TODO - Check for empty or incomplete fields.
-        
         $service_date = $_POST['service_year'].'-'.$_POST['service_month'].'-'.$_POST['service_day'];
         $client_id = $_POST['client_id'];
         $meal_id = $_POST['meal_id'];
-
+        $menu_image_path = $this->image->upload_image($_FILES, "menu_image");
         for ($i=0; $i <= $_POST['meals_per_day']; $i++) { 
-            // $file_name = $_FILES["company_logo"]["name"];
-
             if(!isset($_POST['is_vegetarian'][$i])) $_POST['is_vegetarian'][$i] = 0;
             if(!isset($_POST['is_vegan'][$i])) $_POST['is_vegan'][$i] = 0;
             if(!isset($_POST['is_gluten_free'][$i])) $_POST['is_gluten_free'][$i] = 0;
@@ -96,13 +91,13 @@ class Menu {
             if(!isset($_POST['contains_nuts'][$i])) $_POST['contains_nuts'][$i]= 0;
             if(!isset($_POST['contains_soy'][$i])) $_POST['contains_soy'][$i] = 0;
             if(!isset($_POST['contains_shellfish'][$i])) $_POST['contains_shellfish'][$i] = 0;
-
             $arguments = [
                 $service_date,
                 $_POST['meal_id'],
                 $_POST['client_id'],
                 $_POST['server_id'],
                 $_POST['item_status_id'],
+                $menu_image_path,
                 $_POST['meal_description'],
                 $_POST['menu_item_name'][$i],
                 $_POST['ingredients'][$i],
@@ -118,7 +113,7 @@ class Menu {
                 $_POST['number_of_servings'][$i],
                 $_POST['order_quantity'][$i],
             ];    
-            $query = $this->database_connection->prepare("INSERT INTO menu_items (service_date, meal_id, client_id, server_id, item_status_id, meal_description, menu_item_name, ingredients, special_notes, is_vegetarian, is_vegan, is_gluten_free, is_whole_grain, contains_nuts, contains_soy, contains_shellfish, price_per_order, number_of_servings, order_quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $query = $this->database_connection->prepare("INSERT INTO menu_items (service_date, meal_id, client_id, server_id, item_status_id, menu_image_path, meal_description, menu_item_name, ingredients, special_notes, is_vegetarian, is_vegan, is_gluten_free, is_whole_grain, contains_nuts, contains_soy, contains_shellfish, price_per_order, number_of_servings, order_quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $result = $query->execute($arguments);
             print_r($result);
             if($query->rowCount() === 1){
@@ -312,7 +307,6 @@ class Menu {
         echo "<h2>Context is: $context</h2>";
 
         require_once("../_config/config.php");
-        require_once("../_classes/Client.php");
         require_once("../_classes/Messages.php");
 
         $monday_last_week = date('Y-m-d', strtotime('Monday last week'));
@@ -482,7 +476,6 @@ class Menu {
 
 
     public function get_menu_form($client_id, $service_date = null, $meal_id = null) {
-
         $menu = new Menu();
         $servers = new Servers();
         $client = new Client();
@@ -506,7 +499,6 @@ class Menu {
         $year_options_array = [$start_year, $end_year];
         $server_image_path = '../_images/server-placeholder.jpg';
         $menu_item_hidden_ids = "";
-        
         if(isset($service_date) && isset($meal_id)) {
             $mode = 'edit';
             $form_action = '../_actions/update-menu.php';
@@ -519,8 +511,6 @@ class Menu {
             $query->execute($arguments);
             $query->execute($arguments);
             $menu_items = $query->fetchAll(PDO::FETCH_ASSOC);
-            // echo "<pre>";
-            // print_r($menu_items);
             $number_of_meals = count($menu_items);
             for ($i=0; $i < count($menu_items); $i++) { 
                 $current_month = date('m', strtotime($service_date));
@@ -529,8 +519,6 @@ class Menu {
                 $current_server_id = $menu_items[0]['server_id'];
                 $current_meal_id = $menu_items[0]['meal_id'];
                 $meal_description = $menu_items[0]['meal_description'];
-                // $menu_item_id_array.push($menu_items[])
-                // $html .= "Day: ".$current_day;
             }
         } else {
             $mode = 'create';
@@ -541,7 +529,7 @@ class Menu {
         }
 
         // The following for loops were just complex enough to not cosolidate into a function. 
-        // The are used to create the options for the select fields, selecting the current option when in edit mode.
+        // They are used to create the options for the select fields, selecting the current option when in edit mode.
 
         // Year
 
@@ -588,34 +576,42 @@ class Menu {
             $server_list_options .= "<option $selected data-server-image-path='".$server_list[$i]['server_image_path']."' value='".$server_list[$i]['server_id']."'>".$server_list[$i]['server_first_name']." ".$server_list[$i]['server_last_name']."</option>";
         }
 
-        $html .= "<form class='create-menu-form' action='$form_action' method='post'>";
-        $html .=    "<h3>Date</h3>";
-        $html .=    "<select name='service_month' class='month'>";
-        $html .=            $month_options;
-        $html .=    "</select>";
-        $html .=    "<select name='service_day' class='day'></select>";
-        $html .=    "<select name='service_year' class='year'>";
-        $html .=        $year_options;
-        $html .=    "</select>";
-        $html .=    "<h3>Meal Type</h3>";
-        $html .=    "<select name='meal_id'>";
-        $html .=        $meal_type_options;
-        $html .=    "</select>";
-        $html .=    "<h3>Meal Description</h3>";
-        $html .=    "<input name='meal_description' type='text' placeholder='Add Description Here' value='$meal_description' />";
-        $html .=    "<div>";
+        $html .= "<form class='create_menu_form' action='$form_action' method='post' enctype='multipart/form-data'>";
+        $html .=    "<fieldset>";
+        $html .=        "<h3>Date</h3>";
+        $html .=        "<select name='service_month' class='month'>";
+        $html .=                $month_options;
+        $html .=        "</select>";
+        $html .=        "<select name='service_day' class='day'></select>";
+        $html .=        "<select name='service_year' class='year'>";
+        $html .=            $year_options;
+        $html .=        "</select>";
+        $html .=    "</fieldset>";
+        $html .=    "<fieldset>";
+        $html .=        "<h3>Meal Type</h3>";
+        $html .=        "<select name='meal_id'>";
+        $html .=            $meal_type_options;
+        $html .=        "</select>";
+        $html .=    "</fieldset>";
+        $html .=    "<fieldset>";
+        $html .=        "<h3>Meal Description</h3>";
+        $html .=        "<input name='meal_description' type='text' placeholder='Add Description Here' value='$meal_description' />";
+        $html .=    "</fieldset>";
+        $html .=    "<fieldset>";
         $html .=        "<div>";
-        $html .=            "<img width='20' class='server-image' src='$server_image_path' />";
-        $html .=            "<select class='server' name='server_id'>";
-        $html .=                "<option value='none'>Select Server</option>";
-        $html .=                    $server_list_options;
-        $html .=            "</select>";
+        $html .=            "<div>";
+        $html .=                "<img width='100' class='server-image' src='$server_image_path' />";
+        $html .=                "<select class='server' name='server_id'>";
+        $html .=                    "<option value='none'>Select Server</option>";
+        $html .=                        $server_list_options;
+        $html .=                "</select>";
+        $html .=            "</div>";
+        $html .=            "<div class='menu-image'>";
+        $html .=                "<img width='100' src='../_images/menu-image-placeholder.jpg' />";
+        $html .=                "<input name='menu_image' type='file' />";
+        $html .=            "</div>";
         $html .=        "</div>";
-        $html .=        "<div class='menu-image'>";
-        $html .=            "<img width='20' src='../_images/menu-image-placeholder.jpg' />";
-        $html .=            "<input type='file' />";
-        $html .=        "</div>";
-        $html .=    "</div>";
+        $html .=    "</fieldset>";
         for ($i=0; $i < $number_of_meals; $i++) {
             if($mode == 'edit') {
                 $item_name = $menu_items[$i]['menu_item_name'];
@@ -633,7 +629,6 @@ class Menu {
                 $order_quantity = $menu_items[$i]['order_quantity'];
                 $menu_item_id = $menu_items[$i]['menu_item_id'];
                 $menu_item_hidden_ids .= "<input type='hidden' name='menu_item_id_array[]' value='$menu_item_id' />";
-                echo "<h1>NOS: $number_of_servings</h1>";
             } else {
                 $item_name = "";
                 $ingredients = "";
@@ -652,33 +647,34 @@ class Menu {
             }
 
             $form .= <<<FORM
-            <h1>----------------------------</h1>
-            <div data-increment-id="$i" class="menu-item menu-item-$i">
-                <input type="text" name="menu_item_name[$i]" value="$item_name" placeholder="Add Menu Item Name" />
-                <input type="text" name="ingredients[$i]" value="$ingredients" placeholder="Add Ingredients" />
-                <input type="text" name="special_notes[$i]" value="$special_notes" placeholder="Special Notes" />
-                <input type="checkbox" value="1" $is_vegetarian_checked name="is_vegetarian[$i]"><label>Vegetarian</label>
-                <input type="checkbox" value="1" $is_vegan_checked name="is_vegan[$i]"><label>Vegan</label>
-                <input type="checkbox" value="1" $is_gluten_free_checked name="is_gluten_free[$i]"><label>Gluten Free</label>
-                <input type="checkbox" value="1" $is_whole_grain_checked name="is_whole_grain[$i]"><label>Whole Grain</label>
-                <input type="checkbox" value="1" $contains_nuts_checked name="contains_nuts[$i]"><label>Contains Nuts</label>
-                <input type="checkbox" value="1" $contains_soy_checked name="contains_soy[$i]"><label>Contains Soy</label>
-                <input type="checkbox" value="1" $contains_shellfish_checked name="contains_shellfish[$i]"><label>Contains Shellfish</label>
-                <h3>Set Price per Order</h3>
-                <input class="price-per-order-input" name="price_per_order[$i]" type="text" value="$price_per_order" placeholder="$0.00" />
-                <input class="serves-input" name="number_of_servings[$i]" type="text" value="$number_of_servings" placeholder="Serves 0" />
-                <p class="order-summary">
-                    <span class="quantity">$order_quantity</span> Orders Serves
-                    <span class="serves-output">0</span> 
-                    $<span class="price-per-order-output">0</span>
-                </p>
-                <input type="hidden" name="order_quantity[$i]" class="order-quantity"  value="" />
-                <input type="hidden" name="meals_per_day" value="$i" />
-                <input type="hidden" name="client_id" value="$client_id" />
-                <input type="hidden" name="item_status_id" value="1" />
-                <a class="quantity-button subtract">Subtract</a>
-                <a class="quantity-button add">Add</a>
-            </div>
+            <fieldset>
+                <div data-increment-id="$i" class="menu-item menu-item-$i">
+                    <input type="text" name="menu_item_name[$i]" value="$item_name" placeholder="Add Menu Item Name" />
+                    <input type="text" name="ingredients[$i]" value="$ingredients" placeholder="Add Ingredients" />
+                    <input type="text" name="special_notes[$i]" value="$special_notes" placeholder="Special Notes" />
+                    <input type="checkbox" value="1" $is_vegetarian_checked name="is_vegetarian[$i]"><label>Vegetarian</label>
+                    <input type="checkbox" value="1" $is_vegan_checked name="is_vegan[$i]"><label>Vegan</label>
+                    <input type="checkbox" value="1" $is_gluten_free_checked name="is_gluten_free[$i]"><label>Gluten Free</label>
+                    <input type="checkbox" value="1" $is_whole_grain_checked name="is_whole_grain[$i]"><label>Whole Grain</label>
+                    <input type="checkbox" value="1" $contains_nuts_checked name="contains_nuts[$i]"><label>Contains Nuts</label>
+                    <input type="checkbox" value="1" $contains_soy_checked name="contains_soy[$i]"><label>Contains Soy</label>
+                    <input type="checkbox" value="1" $contains_shellfish_checked name="contains_shellfish[$i]"><label>Contains Shellfish</label>
+                    <h3>Set Price per Order</h3>
+                    <input class="price-per-order-input" name="price_per_order[$i]" type="text" value="$price_per_order" placeholder="$0.00" />
+                    <input class="serves-input" name="number_of_servings[$i]" type="text" value="$number_of_servings" placeholder="Serves 0" />
+                    <p class="order-summary">
+                        <span class="quantity">$order_quantity</span> Orders Serves
+                        <span class="serves-output">0</span> 
+                        $<span class="price-per-order-output">0</span>
+                    </p>
+                    <input type="hidden" name="order_quantity[$i]" class="order-quantity"  value="" />
+                    <input type="hidden" name="meals_per_day" value="$i" />
+                    <input type="hidden" name="client_id" value="$client_id" />
+                    <input type="hidden" name="item_status_id" value="1" />
+                    <a class="quantity-button subtract">Subtract</a>
+                    <a class="quantity-button add">Add</a>
+                </div>
+            </fieldset>
 FORM;
         }
         $html .= $form;
@@ -686,15 +682,14 @@ FORM;
         $html .= $menu_item_hidden_ids;
         $html .= "</form>";
         $html .= "<div class='order-summary'>";
-        $html .=    "<h1>Order Summary</h1>";
         $html .=    "<p>";
         $html .=        "<span class='total-number-of-orders'>0</span> Orders Serves ";
         $html .=        "<span class='total-people-served'>0</span> = ";
         $html .=        "<span class='total-cost'>0</span>";
         $html .=    "</p>";
-        $html .=    "<button class='preview-menu-button'>Save and Preview</button>";
+        $html .=    "<button class='preview_menu_button'>Save and Preview</button>";
         $html .= "</div>";
-        echo $html;
+        return $html;
     }
 
 }

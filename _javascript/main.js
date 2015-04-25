@@ -6,20 +6,20 @@ $(document).ready(function() {
 
 	*/
 
-	$('body.create-menu').ready(function(event) {
+	$('body.create_menu_page').ready(function(event) {
 		set_days_in_month();
 	});
 	
-	$('.create-menu select.month').change(function(event){
+	$('.create_menu_page select.month').change(function(event){
 		set_days_in_month();
 	});
 
-	$('.create-menu .price-per-order-input').keyup(function(event){
+	$('.create_menu_page .price-per-order-input').keyup(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		update_item_price(current_class);
 	});
 
-	$('.create-menu .serves-input').keyup(function(event){
+	$('.create_menu_page .serves-input').keyup(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		var input_value = $(this).val();
 		if(Math.floor(input_value) == input_value && $.isNumeric(input_value)) {
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		update_item_price(current_class);
 	});
 
-	$('.create-menu .quantity-button').click(function(event){
+	$('.create_menu_page .quantity-button').click(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		var quantity = $(current_class+' .quantity').html();
 		if($(this).hasClass('add')) {
@@ -44,11 +44,11 @@ $(document).ready(function() {
 		update_item_price(current_class);
 	});
 
-	$('.create-menu .preview-menu-button').click(function(event){
-		$('.create-menu-form').submit();
+	$('.create_menu_page .preview_menu_button').click(function(event){
+		$('.create_menu_form').submit();
 	});
 
-	$('.create-menu select.server').change(function(event) {
+	$('.create_menu_page select.server').change(function(event) {
 		var image_path = $('option:selected', this).attr('data-server-image-path');
 		console.log(image_path);
 		$('.server-image').attr('src', '../'+image_path);
@@ -133,7 +133,6 @@ function set_days_in_month() {
 			leadingZeroDay = i;
 		}
 		if($('.current_day_edit_mode').val() == 0) {
-			alert("EQ 0");
 			if(i === tomorrow.getDate()) {
 				selected = "selected='selected'";
 			} else {

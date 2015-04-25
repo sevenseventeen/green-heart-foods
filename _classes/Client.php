@@ -17,13 +17,13 @@ class Client {
     public function get_client($client_id) {
         $arguments = [$client_id];
         $query = $this->database_connection->prepare("SELECT * FROM clients LEFT JOIN users ON clients.admin_user_id = users.user_id WHERE clients.client_id = ?");
-        // $query = $this->database_connection->prepare("SELECT * FROM clients WHERE client_id = ?");
         $query->execute($arguments);
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if(count($result) > 0) {
             return $result;
         } else {
-            echo "Sorry, there was an error. No clients were found."; //TODO - Send as error.
+            Messages::add("Sorry, there was an error. The client you requested was not found.");
+            header('Location: '.WEB_ROOT.'/admin/clients.php');
         }
     }
 
@@ -34,7 +34,8 @@ class Client {
         if(count($result) > 0) {
             return $result;
         } else {
-            echo "Sorry, there was an error. No clients were found."; //TODO - Send as error.
+            Messages::add("Sorry, there was an error. No clients were found.");
+            header('Location: '.WEB_ROOT.'/admin/create-client.php');
         }
     }
 
@@ -99,22 +100,17 @@ class Client {
 
     
     /* Create Client */ 
-    // TODO - Check for correct file type, size, pre-existing name
-    // TODO - Rename image on upload.
 
     
     public function create_client() {
         foreach ($_POST as $key => $value) {
-            echo $key." : ".$value."<br />";
             if ($value === '') {
-                echo "Sorry, it looks like you missed a field. Please try again."; // TODO - Send as error.
-                // exit();       
+                Messages::add("Please be sure all fields are complete and try again.");
+                header('Location: '.WEB_ROOT.'/admin/create-client.php');
             }
         }
-
-        $company_logo_small = 'temp'; //$this->image->upload_image($_FILES, "company_logo_small");
-        $company_logo_large = 'temp'; //$this->image->upload_image($_FILES, "company_logo_large");
-        
+        $company_logo_large = $this->image->upload_image($_FILES, "company_logo_large");
+        $company_logo_small = $this->image->upload_image($_FILES, "company_logo_small");
         if ($company_logo_small && $company_logo_large) {
             if(!isset($_POST['has_breakfast'])) $_POST['has_breakfast'] = 0;
             if(!isset($_POST['has_lunch'])) $_POST['has_lunch'] = 0;
@@ -123,8 +119,8 @@ class Client {
             if(!isset($_POST['is_active'])) $_POST['is_active']= 0;
             $arguments = array(
                 $_POST['company_name'],
-                $company_logo_small,
                 $company_logo_large,
+                $company_logo_small,
                 $_POST['admin_name'],
                 $_POST['meals_per_day'],
                 $_POST['has_breakfast'],
@@ -163,7 +159,7 @@ class Client {
 
                 if($admin_user_result && $general_user_result) {
                     Messages::add('The client, '.$_POST['company_name'].', has been added.');
-                    header('Location: ../admin/clients.php');    
+                    header('Location: ../admin/clients.php');
                 } else {
                     Messages::add('Error, there was a problem adding either the client admin or general user');
                     header('Location: ../admin/clients.php');    
@@ -179,7 +175,7 @@ class Client {
     /* 
     
     get_client_form()
-    returns the html for the client form. 
+    returns the html for the client form
     Putting it here allows us to use the same HTML for both create and edit
 
     */
@@ -189,18 +185,9 @@ class Client {
 
         // If client_id is null, the form is used for creating. 
         // Otherwise, it's for editing. 
+        // WEB_ROOT constant set as variable for easy use in heredoc (<<<) below.
 
-        /*
-
-        We have a litte issue here. When creating a client we're also creating 2 
-        user types for that client. To standardize the login flow and permissions systems, both user types are stored 
-        in the users table, rather than the original design of storing them as fields in the client database. 
-        The creation script is working fine, but there's a problem during editing a client. Specifically, when 
-        we do a join to merge the client table with the it's associated users in the user table, 
-
-        */
-
-
+        $web_root = WEB_ROOT;
         if ($client_id !== null) {
             $user = new User();
             $client = $this->get_client($client_id);
@@ -263,51 +250,68 @@ class Client {
         return <<<HTML
 
         <form method="post" action="$form_action" enctype="multipart/form-data">
+            <fieldset>
+                <label>Company Logo Large (For Reference)</label>
+                <input name='company_logo_large' type='file' value='$company_logo_large' />
+            </fieldset>
+            
+            <fieldset>
+                <label>Company Logo Small (For Reference)</label>
+                <input name='company_logo_small' type='file' value='$company_logo_small' />
+            </fieldset>
 
-            <label>Company Logo Large</label>
-            <input name='company_logo_large' type='file' value='$company_logo_large' />
+            <fieldset>
+                <label>Client Name</label>
+                <input name="company_name" type='text' value="$company_name" placeholder="Enter Name" />
+            </fieldset>
 
-            <label>Company Logo Small</label>
-            <input name='company_logo_small' type='file' value='$company_logo_small' />
+            <fieldset>
+                <label>Admin Info</label>
+                
+                <label>Admin Name</label>
+                <input name='admin_name' type='text' value='$admin_name' placeholder="Enter Name"/>
+                
+                <label>Admin Email</label>
+                <input name='admin_email' type='text' value='$admin_email' placeholder="Enter Email"/>
+                
+                <label>Password</label>
+                <input name='admin_password' type='text' value='$admin_password' placeholder="Enter Password"/>
+            </fieldset>
 
-            <label>Company Name</label>
-            <input name="company_name" type='text' value="$company_name" />
+            <fieldset>
+                <label>General Info</label>
+                
+                <label>Log In Name</label>
+                <input name='general_username' type='text' value='$general_username' placeholder="Enter Email"/>
+                
+                <label>Log In Password</label>
+                <input name='general_password' type='text' value='$general_password' placeholder="Enter Password"/>
+            </fieldset>
 
-            <label>Admin Name</label>
-            <input name='admin_name' type='text' value='$admin_name' />
+            <fieldset>
+                <label>Number of Items Per Meal</label>
+                <input name='meals_per_day' type='text' value='$meals_per_day' placeholder="Items per Meal"/>
+            </fieldset>
 
-            <label>Admin Email</label>
-            <input name='admin_email' type='text' value='$admin_email' />
+            <fieldset class="checkbox_labels">
+                <label>Meals</label>
+                <input name='has_breakfast' type='checkbox' $has_breakfast_checked value="1" />
+                <label>Breakfast</label>
+                <input name='has_lunch' type='checkbox' $has_lunch_checked value="1" />
+                <label>Lunch</label>
+                <input name='has_dinner' type='checkbox' $has_dinner_checked value="1" />
+                <label>Dinner</label>
+                <input name='has_snack' type='checkbox' $has_snack_checked value="1" />
+                <label>Snacks</label>
+            </fieldset>
 
-            <label>Admin Password</label>
-            <input name='admin_password' type='text' value='$admin_password' />
-
-            <label>General Login Username</label>
-            <input name='general_username' type='text' value='$general_username' />
-
-            <label>General Login Password</label>
-            <input name='general_password' type='text' value='$general_password' />
-
-            <label>Number of Items per Meal</label>
-            <input name='meals_per_day' type='text' value='$meals_per_day' />
-
-            <label>Breakfast</label>
-            <input name='has_breakfast' type='checkbox' $has_breakfast_checked value="1" />
-
-            <label>Lunch</label>
-            <input name='has_lunch' type='checkbox' $has_lunch_checked value="1" />
-
-            <label>Dinner</label>
-            <input name='has_dinner' type='checkbox' $has_dinner_checked value="1" />
-
-            <label>Snacks</label>
-            <input name='has_snack' type='checkbox' $has_snack_checked value="1" />
-
-            <label>Active</label>
-            <input name='is_active' type='checkbox' $is_active_checked value="1" />
+            <fieldset class="checkbox_labels">
+                <input name='is_active' type='checkbox' $is_active_checked value="1" />
+                <label>Active Client</label>
+            </fieldset>
 
             <input type="hidden" name="client_id" value="$client_id" />
-
+            <a href="$web_root/admin/clients.php">Cancel</a>
             <input type='submit' value='Submit'>
 
         </form>

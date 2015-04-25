@@ -1,19 +1,23 @@
-<!-- <pre> -->
-<h1>Create Menu</h1>
-
 <?php
-	$page_class = 'create-menu';
+	$page_class = 'create_menu_page';
+	$page_title_detail = 'Create Menu';
 	require_once("../_config/config.php");
-    require_once("../_includes/restrict-access-green-heart-foods.php");
-    require_once("../_includes/global-header.php");
+    require_once(SERVER_ROOT . "/_includes/restrict-access-green-heart-foods.php");
+    require_once(SERVER_ROOT . "/_includes/global-header.php");
     require_once("../_classes/Menu.php");
 	require_once("../_classes/Servers.php");
-	require_once("../_classes/Client.php");
 	$client_id = $_GET['client-id'];
 	$menu = new Menu();
-	$menu->get_menu_form($client_id);
+	$menu_form = $menu->get_menu_form($client_id);
 ?>
 
-<footer>
-	<p>Footer Stuff Goes Here</p>
-</footer>
+<h2>Menu</h2>
+<div class="message">
+	<?php Messages::render(); ?>
+</div>
+
+<div class="client_form">
+	<?php echo $menu_form; ?>
+</div>
+
+<?php require_once(SERVER_ROOT . "/_includes/global-footer.php"); ?>
