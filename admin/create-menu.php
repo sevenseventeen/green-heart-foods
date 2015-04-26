@@ -4,14 +4,17 @@
 	require_once("../_config/config.php");
     require_once(SERVER_ROOT . "/_includes/restrict-access-green-heart-foods.php");
     require_once(SERVER_ROOT . "/_includes/global-header.php");
-    require_once("../_classes/Menu.php");
-	require_once("../_classes/Servers.php");
+    require_once(SERVER_ROOT . "/_classes/Menu.php");
+	require_once(SERVER_ROOT . "/_classes/Servers.php");
 	$client_id = $_GET['client-id'];
 	$menu = new Menu();
 	$menu_form = $menu->get_menu_form($client_id);
 ?>
 
-<h2>Menu</h2>
+<div class='page_header'>
+	<h2>Menu</h2>
+</div>
+
 <div class="message">
 	<?php Messages::render(); ?>
 </div>

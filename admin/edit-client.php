@@ -1,13 +1,17 @@
-<pre>
-<h1>Edit Client</h1>
-
-<?php 
+<?php
+	$page_class = 'edit_client_page';
+	$page_title_detail = 'Edit Client';
 	require_once("../_config/config.php");
-    require_once("../_includes/restrict-access-green-heart-foods.php");
-    require_once("../_includes/global-header.php");
-	require_once('../_classes/Client.php'); 
+    require_once(SERVER_ROOT . "/_includes/restrict-access-green-heart-foods.php");
+    require_once(SERVER_ROOT . "/_includes/global-header.php");
+    require_once(SERVER_ROOT . "/_classes/Client.php");
 	$client = new Client();
 	$client_id = $_GET['client-id'];
-	$result = $client->get_client_form($client_id);
-	echo $result;
+	$client_form = $client->get_client_form($client_id);
 ?>
+
+<div class="client_form">
+	<?php echo $client_form ?>
+</div>
+
+<?php require_once(SERVER_ROOT . "/_includes/global-footer.php"); ?>

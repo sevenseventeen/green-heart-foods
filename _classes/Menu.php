@@ -115,11 +115,10 @@ class Menu {
             ];    
             $query = $this->database_connection->prepare("INSERT INTO menu_items (service_date, meal_id, client_id, server_id, item_status_id, menu_image_path, meal_description, menu_item_name, ingredients, special_notes, is_vegetarian, is_vegan, is_gluten_free, is_whole_grain, contains_nuts, contains_soy, contains_shellfish, price_per_order, number_of_servings, order_quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $result = $query->execute($arguments);
-            print_r($result);
-            if($query->rowCount() === 1){
-                Messages::add('The menu has been created.');
-                header("Location: ../admin/daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id");
-            }
+        }
+        if($query->rowCount() === 1){
+            Messages::add('The menu has been created.');
+            header("Location: ../admin/daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id");
         }
     }
 
@@ -226,24 +225,30 @@ class Menu {
     }
 
     public function get_daily_menu_page($context) {
-
-        echo "<h1>Daily Menu - Determine Context</h1>";
-        echo "<h2>Context is: $context</h2>";
-
+        $html = "";
+        $result = $this->get_meal_types();
+        $message = Messages::render();
+        $meal_id = $_GET['meal-id'];
+        $selected = "";
         $client_id = $_GET['client-id'];
         $service_date = $_GET['service-date'];
-        $meal_id = $_GET['meal-id'];
-        // $menu = new Menu();
-        $result = $this->get_meal_types();
-        $selected = "";
-
+        $weekday = date('l', strtotime($service_date));
+        $web_root = WEB_ROOT;
         // TODO - If daily menu is in client context, need to check that client_id is the same as 
         // the one stored in session_id so clients can't view eachothers menus
-        
-        echo "Messages: ".Messages::render();
-        echo date('M d', strtotime($service_date));
-        echo "<br />";
-        echo "<select data-client-id='$client_id' data-service-date='$service_date' class='meal-types'>";
+
+        $html .= "<div class='page_header'>";
+        if($context == 'green_heart_foods_admin') {
+            $html .= "<a href='$web_root/admin/daily-menu-print-menu.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id'>Print Menu</a>";
+        }
+        $html .= "<h2>$weekday</h2>";
+        if($context == 'green_heart_foods_admin') {
+            $html .= "<a href='$web_root/admin/daily-menu-print-placards.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id'>Print Placards</a>";
+        }
+        $html .= "</div>";
+        $html .= "<div class='message'>$message</div>";
+        $html .= date('M d', strtotime($service_date))."<br />";
+        $html .= "<select data-client-id='$client_id' data-service-date='$service_date' class='meal-types'>";
         for($i=0; $i<count($result); $i++) {
             $meal_id_option = $result[$i]['meal_id'];
             if($meal_id === $meal_id_option) {
@@ -252,10 +257,10 @@ class Menu {
                 $selected = '';
             }
             $meal_name = $result[$i]['meal_name'];
-            echo $result[$i]['meal_name']."<br />";
-            echo "<option $selected value='".$meal_id_option."'>$meal_name</option>";
+            $html .= $result[$i]['meal_name']."<br />";
+            $html .= "<option $selected value='".$meal_id_option."'>$meal_name</option>";
         }
-        echo '</select>';
+        $html .= '</select>';
 
         $result = $this->get_daily_menu($client_id, $service_date, $meal_id);
         $result_count = count($result);
@@ -268,36 +273,77 @@ class Menu {
             'contains_soy', 
             'contains_shellfish'
         ];
-        // echo '<pre>';
-        // print_r($result);
-
         if($result_count > 0) {
-            echo '<pre />';
-            echo "<h2>".$result[0]['meal_description']."</h2>";
-            echo "Server First Name: ".$result[0]['server_first_name']."<br />";
-            echo "Server Phone Number: ".$result[0]['server_phone_number']."<br />";
-            echo "<img src='../".$result[0]['server_image_path']."' />";
-            echo "<p>Will be servings lunch today.</p>";
+
+            $server_image_path = WEB_ROOT.'/'.$result[0]['server_image_path'];
+            $menu_image_path = WEB_ROOT.'/_uploads/'.$result[0]['menu_image_path'];
+            $total_orders = 0;
+            $total_servings = 0;
+            $total_price = 0;
+
+            $html .= "<p class='meal_description'>".$result[0]['meal_description']."</p>";
+            $html .= "<div class='fake_hr'></div>";
+            $html .= "<div class='server_information'>";
+            $html .=    "<img src='$server_image_path' />";
+            $html .=    $result[0]['server_first_name']."<br />";
+            $html .=    $result[0]['server_phone_number']."<br />";
+            $html .=    "<p>Will be servings lunch today.</p>";
+            $html .= "</div>";
+            $html .= "<div class='menu_image_container'>";
+            $html .=    "<img src='$menu_image_path' />";
+            $html .= "</div>";
+            $html .= "<div class='fake_hr'></div>";
             for($i=0; $i<$result_count; $i++) {
+                $checkboxes = "";
                 $menu_item_id = $result[$i]['menu_item_id'];
-                echo '<hr />';
-                echo "<div data-menu-item-id='$menu_item_id' class='like-heart'>Like Heart</div>";
-                echo $result[$i]['menu_item_name'].'<br />';
-                echo $result[$i]['ingredients'].'<br />';
-                echo $result[$i]['special_notes'].'<br />';
+                $like_count = $result[$i]['like_count'];
+                $order_quantity = $result[$i]['order_quantity'];
+                $price_per_order = $result[$i]['price_per_order'];
+                $number_of_servings = $result[$i]['number_of_servings'];
+                $total_item_price = $order_quantity*$price_per_order;
+                $total_orders = $total_orders+$order_quantity;
+                $total_servings = $total_servings+$number_of_servings;
+                $total_price = $total_price+$total_item_price;
+                if($like_count > 0) {
+                    $like_heart_class = 'liked';
+                } else {
+                    $like_heart_class = '';
+                }
+                $html .= "<div data-menu-item-id='$menu_item_id' class='like-heart $like_heart_class'>Like Heart</div>";
+                $html .= "<p>".$like_count." Likes</p>";
+                $html .= "<p>".$result[$i]['menu_item_name'].'</p>';
+                $html .= "<p>".$result[$i]['ingredients'].'</p>';
+                $html .= "<p>".$result[$i]['special_notes'].'</p>';
                 for($j=0; $j<count($item_attributes_array); $j++) {
                     if($result[$i][$item_attributes_array[$j]] == 1) {
-                        echo "Checkbox".$item_attributes_array[$j].'<br />';    
+                        $checkboxes .= $item_attributes_array[$j]. ", ";
                     }
                 }
-                echo "Order Quantity: ".$result[$i]['special_notes'].'<br />';
-                echo "Number of Servings: ".$result[$i]['number_of_servings'].'<br />';
-                echo "TODO - Add button, subtract button, special instructions.";
+                $checkboxes = str_replace('is_', '', $checkboxes);
+                $checkboxes = str_replace('_', ' ', $checkboxes);
+                $checkboxes = substr($checkboxes, 0, -2);
+                $html .= $checkboxes;
+                $html .= "<p>".$result[$i]['special_notes']."</p>";
+                $html .= "<p>".$result[$i]['special_requests']."</p>";
+                $html .= "<p>1 Order Serves $number_of_servings People / $$price_per_order Per Order</p>";
+                $html .= "<div class='item_summary_container'>";
+                $html .=    "$order_quantity Orders Serves $number_of_servings $$total_item_price";
+                $html .= "</div>";
+                if($context == 'client_admin' || $context == 'client_general') {
+                    $html .= "TODO - Add button, subtract button, special instructions.";    
+                }
+                if($i < $result_count-1) {
+                    $html .= "<div class='fake_hr'></div>";    
+                }
             }
-            echo "<p><a href='".WEB_ROOT."/admin/edit-daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id'>Edit Daily Menu</a></p>";
+            $html .= "<div class='order_summary'>";
+            $html .=    "<p>$total_orders Orders Serves $total_servings = $$total_price</p>";
+            $html .= "</div>";
+            $html .= "<p><a href='".WEB_ROOT."/admin/edit-daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id'>Edit Daily Menu</a></p>";
         } else {
-            echo '<p>Sorry, no menu items found.</p>';
+            $html .= '<p>Sorry, no menu items found.</p>';
         }
+        return $html;
     }
 
 

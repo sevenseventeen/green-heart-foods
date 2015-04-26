@@ -1,4 +1,4 @@
-body {
+ body {
 	margin: 0;
 	padding: 0;
 	text-transform: uppercase;
@@ -22,14 +22,19 @@ footer {
 	background-color: #34b67d;
 }
 
-h2 {
+h1, h2, h3, h4 {
+	margin: 0;
+	padding: 0;
+}
+
+/* Global Styles */ 
+
+.page_header {
 	display: block;
-	height: 50px;
 	background-color: #84445e;
 	text-align: center;
 	color: #fff;
-	padding-top: 20px;
-	overflow: auto;
+	padding: 20px 0 20px 0;
 	margin: 0;
 }
 
@@ -37,6 +42,12 @@ h2 {
 	max-width: 1224px;
 	margin: 0 auto;
 	border: 1px solid #ccc;
+}
+
+.fake_hr {
+	height: 2px;
+	background-color: #84445e;
+	clear: both;
 }
 
 
@@ -104,10 +115,61 @@ h2 {
 /* Create Menu Page */ 
 
 
-.create_menu_page h2 {
-	
-	
-	
-	
-	
+.no-styles-here-yet {}
+
+
+/* Daily Menu Page */
+
+
+.daily_menu_page .server_information {
+	background-color: green;
+	width: 300px;
+	float: left;
+}
+
+.daily_menu_page .item_summary_container {
+	border: 1px solid #ccc;
+	padding: 20px 0;
+	width: 300px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.daily_menu_page .order_summary {
+	color: #fff;
+	text-align: center;
+	background-color: #84445e;
+	padding: 40px 0;
+}
+
+
+/* Daily Menu - Print Placards */
+
+
+.daily_menu_print_placards_page .placard_container {
+	width: 300px;
+	height: 100px;
+	float: left;
+	text-transform: capitalize;
+	border: 1px solid #ccc;
+}
+
+
+/* Daily Menu - Print Placards */
+
+
+.daily_menu_print_menu_page {
+	text-transform: capitalize;
+}
+
+
+/* Daily Menu - Print Placards */
+
+
+.edit_client_page .main_container {
+	background-color: #0e6552;
+}
+
+.edit_client_page .client_form {
+	background-color: #fff;
 }

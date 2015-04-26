@@ -11,22 +11,23 @@
 ?>
 
 <h1>Clients</h1>
+
 <div class="message">
-	Hello<?php Messages::render(); ?>
+	<?php Messages::render(); ?>
 </div>
 
 <div class="client_list">
-<?php 
-	for ($i=0; $i < count($all_clients); $i++) {
-		$client_id = $all_clients[$i]['client_id'];
-		$company_name = $all_clients[$i]['company_name'];
-		$company_logo = WEB_ROOT . "/_uploads/".$all_clients[$i]['company_logo_small'];
-		echo "<div class='client_result'>";
-		echo 	"<a class='company_logo' href='weekly-menu.php?client-id=$client_id'><img src='$company_logo' /></a>";
-		echo 	"<a class='edit_button' href='edit-client.php?client-id=$client_id'>Edit</a>";
-		echo "</div>";
-	}
-?>
+	<?php 
+		for ($i=0; $i < count($all_clients); $i++) {
+			$client_id = $all_clients[$i]['client_id'];
+			$company_name = $all_clients[$i]['company_name'];
+			$company_logo = WEB_ROOT . "/_uploads/".$all_clients[$i]['company_logo_small'];
+			echo "<div class='client_result'>";
+			echo 	"<a class='company_logo' href='weekly-menu.php?client-id=$client_id'><img src='$company_logo' /></a>";
+			echo 	"<a class='edit_button' href='edit-client.php?client-id=$client_id'>Edit</a>";
+			echo "</div>";
+		}
+	?>
 </div>
 
 <div class="add_client_button_container">

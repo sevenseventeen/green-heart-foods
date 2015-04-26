@@ -46,40 +46,44 @@
 
 <h3>admin/daily-menu.php</h3>
 <ul>
-	<li>After creating new meal, page redirects to breakfast</li>
-	<li>Determine page context</li>
-	<li>Convert checkbox results to text (first letter uppercase and remove underscore);</li>
-	<li>Hook up subtract and add buttons</li>
-	<li>Add static page content</li>
-	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
-	<li>Review, clean and comment code</li>
-	<li>Add print placards link</li>
-	<li>Add print menu link</li>
-	<li>Display special notes from client if available</li>
-	<li>Display picture of meal</li>
-	<li>Favorite heart div with ‘like’ count</li>
-	<li>Do math for “10 orders serves 150 $750” </li>
-	<li>Hide subtract and add buttons for GHF context</li>
+	<strike><li>After creating new meal, page redirects to breakfast</li></strike>
+	<strike><li>Determine page context</li></strike>
+	<strike><li>Convert checkbox results to text (first letter uppercase and remove underscore);</li></strike>
+	<strike><li>Add static page content</li></strike>
+	<strike><li>Review error message placement</li></strike>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
+	<strike><li>Review, clean and comment code</li></strike>
+	<strike><li>Add print placards link</li></strike>
+	<strike><li>Add print menu link</li></strike>
+	<strike><li>Display special notes from client if available</li></strike>
+	<strike><li>Display picture of meal</li></strike>
+	<strike><li>Favorite heart div with ‘like’ count</li></strike>
+	<strike><li>Do math for “10 orders serves 150 $750” </li></strike>
+	<strike><li>Hide subtract and add buttons for GHF context</li></strike>
 </ul>
 
 <h3>admin/daily-menu-print-placards.php</h3>
 <ul>
-	<li>Determine page content</li>
-	<li>Update to-do list with scope</li>
+	<strike><li>Determine page content</li></strike>
+	<strike><li>Update to-do list with scope</li></strike>
 </ul>
 
 <h3>admin/daily-menu-print-menu.php</h3>
 <ul>
-	<li>Determine page content</li>
-	<li>Update to-do list with scope</li>
+	<strike><li>Determine page content</li></strike>
+	<strike><li>Update to-do list with scope</li></strike>
 </ul>
 
 <h3>admin/edit-client.php</h3>
 <ul>
 	<li>Add hidden inputs for image paths</li>
 	<li>Add logic for replacing or keeping existing image paths.</li>
+	<li>Add static page content</li>
+	<li>Review error message placement</li>
+	<li>Add global structure </li>
+	<li>Add div hooks for css</li>
+	<li>Review, clean and comment code</li>
 </ul>
 
 

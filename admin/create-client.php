@@ -11,7 +11,11 @@
 ?>
 
 <h1>Clients</h1>
-<h2>Edit Client</h2>
+
+<div class='page_header'>
+	<h2>Create Client</h2>
+</div>
+
 <div class="message">
 	<?php Messages::render(); ?>
 </div>
