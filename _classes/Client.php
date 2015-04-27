@@ -40,12 +40,7 @@ class Client {
     }
 
     public function update_client() {
-
-        // TODO Figure out logic for files.
-        // TODO - Fix update flow to work with users in user table.
-
         $client_id = $_POST['client_id'];
-
         $arguments = [
             $_POST['admin_email'],
             $_POST['admin_password'],
@@ -70,15 +65,21 @@ class Client {
         if(!isset($_POST['has_snack'])) $_POST['has_snack'] = 0;
         if(!isset($_POST['is_active'])) $_POST['is_active']= 0;
 
-        $company_logo_large = 'TODO - Large'; //$_FILES["company_logo"]["name"];
-        $company_logo_small = 'TODO - Small'; //$_FILES["company_logo"]["name"];
+        if($_FILES['company_logo_large']['name'] != "") {
+            $company_logo_large = $this->image->upload_image($_FILES, "company_logo_large");
+        } else {
+            $company_logo_large = $_POST['company_logo_large_original'];
+        }
+
+        if($_FILES['company_logo_small']['name'] != "") {
+            $company_logo_small = $this->image->upload_image($_FILES, "company_logo_small");
+        } else {
+            $company_logo_small = $_POST['company_logo_small_original'];
+        }
+
         $arguments = [
             $_POST['company_name'],
             $_POST['admin_name'],
-            // $_POST['admin_email'],
-            // $_POST['admin_password'],
-            // $_POST['general_username'],
-            // $_POST['general_password'],
             $_POST['meals_per_day'],
             $_POST['has_breakfast'],
             $_POST['has_lunch'],
@@ -91,10 +92,10 @@ class Client {
         ];
         $query = $this->database_connection->prepare("UPDATE clients SET company_name = ?, admin_name = ?, meals_per_day = ?, has_breakfast = ?, has_lunch = ?, has_dinner = ?, has_snack = ?, company_logo_large = ?, company_logo_small = ?, is_active = ? WHERE client_id = ?");
         $result = $query->execute($arguments);
-        // print_r($result);
         if($query->rowCount() === 1){
             Messages::add($_POST['company_name'].' has been updated.');
             header('Location: ../admin/clients.php');
+            exit();
         }
     }
 
@@ -224,6 +225,8 @@ class Client {
             $client[0]['has_snack'] == 1 ? $has_snack_checked = "checked" : $has_snack_checked = "";
             $client[0]['is_active'] == 1 ? $is_active_checked = "checked" : $is_active_checked = "";
             $form_action = '../_actions/update-client.php';
+            $current_company_logo_large = "<img src='".WEB_ROOT."/_uploads/".$company_logo_large."' />";
+            $current_company_logo_small = "<img src='".WEB_ROOT."/_uploads/".$company_logo_small."' />";
         } else {
             $company_logo_large = "";
             $company_logo_small = "";
@@ -245,17 +248,21 @@ class Client {
             $has_snack_checked = "";
             $is_active_checked = "";
             $form_action = '../_actions/create-client.php';
+            $current_company_logo_large = "";
+            $current_company_logo_small = "";
         }
 
         return <<<HTML
 
         <form method="post" action="$form_action" enctype="multipart/form-data">
             <fieldset>
+                $current_company_logo_large
                 <label>Company Logo Large (For Reference)</label>
                 <input name='company_logo_large' type='file' value='$company_logo_large' />
             </fieldset>
             
             <fieldset>
+                $current_company_logo_small
                 <label>Company Logo Small (For Reference)</label>
                 <input name='company_logo_small' type='file' value='$company_logo_small' />
             </fieldset>
@@ -310,6 +317,8 @@ class Client {
                 <label>Active Client</label>
             </fieldset>
 
+            <input type="hidden" name="company_logo_large_original" value="$company_logo_large" />
+            <input type="hidden" name="company_logo_small_original" value="$company_logo_small" />
             <input type="hidden" name="client_id" value="$client_id" />
             <a href="$web_root/admin/clients.php">Cancel</a>
             <input type='submit' value='Submit'>

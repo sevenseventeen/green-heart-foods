@@ -10,6 +10,8 @@
 	$client_form = $client->get_client_form($client_id);
 ?>
 
+<?php echo Messages::render(); ?>
+
 <div class="client_form">
 	<?php echo $client_form ?>
 </div>

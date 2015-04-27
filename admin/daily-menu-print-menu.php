@@ -30,7 +30,6 @@
             'contains_shellfish'
         ];
 		$html .= "<h2>".date('F d, Y', strtotime($menu_items[0]['service_date']))."</h2>";
-
 		for ($i=0; $i < count($menu_items); $i++) { 
 			$checkboxes = "";
 			$html .= "<h3>".$menu_items[$i]['menu_item_name']."</h3>";

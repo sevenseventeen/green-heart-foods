@@ -41,15 +41,15 @@ class Menu {
 
     public function get_weekly_menu($client_id, $start_date) {
         $end_date = date('Y-m-d', strtotime($start_date.' +6 days'));
-        echo '<pre>';
-        echo "Start: ".$start_date;
-        echo "<br />End: ".$end_date;
+        // echo '<pre>';
+        // echo "Start: ".$start_date;
+        // echo "<br />End: ".$end_date;
         $arguments = [
             $client_id,
             $start_date,
             $end_date
         ];
-        $query = $this->database_connection->prepare("SELECT * FROM menu_items LEFT JOIN meals ON menu_items.meal_id = meals.meal_id WHERE client_id = ? AND (service_date BETWEEN ? AND ?) ORDER BY service_date ASC, meals.meal_id ASC, menu_item_id ASC");
+        $query = $this->database_connection->prepare("SELECT * FROM menu_items LEFT JOIN meals ON menu_items.meal_id = meals.meal_id LEFT JOIN item_status ON menu_items.item_status_id = item_status.item_status_id WHERE client_id = ? AND (service_date BETWEEN ? AND ?) ORDER BY service_date ASC, meals.meal_id ASC, menu_item_id ASC");
         $query->execute($arguments);
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         if(count($result) > 0) {
@@ -136,17 +136,17 @@ class Menu {
 
         // for ($i=0; $i <= $_POST['meals_per_day']; $i++) { 
 
-        echo "<pre>";
-        print_r($_POST);
+        // echo "<pre>";
+        // print_r($_POST);
         $number_of_menu_items = count($menu_item_id_array);
 
-        echo "number_of_menu_items: ".$number_of_menu_items;
+        // echo "number_of_menu_items: ".$number_of_menu_items;
 
         for ($i=0; $i < $number_of_menu_items; $i++) { 
             // $file_name = $_FILES["company_logo"]["name"];
             
 
-            echo "<br />-----I: ".$i;
+            // echo "<br />-----I: ".$i;
             $menu_item_id = $menu_item_id_array[$i];
 
             if(!isset($_POST['is_vegetarian'][$i])) $_POST['is_vegetarian'][$i] = 0;
@@ -157,11 +157,23 @@ class Menu {
             if(!isset($_POST['contains_soy'][$i])) $_POST['contains_soy'][$i] = 0;
             if(!isset($_POST['contains_shellfish'][$i])) $_POST['contains_shellfish'][$i] = 0;
 
+            if($_FILES['menu_image']['name'] != "") {
+                $menu_image_path = $this->image->upload_image($_FILES, 'menu_image');
+            } else {
+                $menu_image_path = $_POST['menu_image_path_orginal'];
+            }
+            
+            // echo '<pre>';
+            // print_r($_POST);
+            // echo "<br /><br /><br />MIPO: ".$_POST['menu_image_path_orginal'];
+            // exit();
+
             $arguments = [
                 $_POST['meal_id'],
                 $_POST['client_id'],
                 $_POST['server_id'],
                 $_POST['item_status_id'],
+                $menu_image_path,
                 $_POST['meal_description'],
                 $_POST['menu_item_name'][$i],
                 $service_date,
@@ -185,6 +197,7 @@ class Menu {
                 client_id = ?, 
                 server_id = ?, 
                 item_status_id = ?, 
+                menu_image_path = ?,
                 meal_description = ?, 
                 menu_item_name = ?, 
                 service_date = ?, 
@@ -207,6 +220,7 @@ class Menu {
             if($i == $number_of_menu_items-1) {
                 Messages::add('The menu has been updated');
                 header("Location: ../admin/daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id");
+                exit();
             }
 
             // if($query->rowCount() === 1){
@@ -246,7 +260,6 @@ class Menu {
             $html .= "<a href='$web_root/admin/daily-menu-print-placards.php?client-id=$client_id&service-date=$service_date&meal-id=$meal_id'>Print Placards</a>";
         }
         $html .= "</div>";
-        $html .= "<div class='message'>$message</div>";
         $html .= date('M d', strtotime($service_date))."<br />";
         $html .= "<select data-client-id='$client_id' data-service-date='$service_date' class='meal-types'>";
         for($i=0; $i<count($result); $i++) {
@@ -348,107 +361,98 @@ class Menu {
 
 
     public function get_weekly_menu_page($context) {
-
-        echo "<h1>Weekly Menu - Determine Context</h1>";
-        echo "<h2>Context is: $context</h2>";
-
-        require_once("../_config/config.php");
-        require_once("../_classes/Messages.php");
-
-        $monday_last_week = date('Y-m-d', strtotime('Monday last week'));
-        $monday_this_week = date('Y-m-d', strtotime('Monday this week'));
-        $monday_next_week = date('Y-m-d', strtotime('Monday next week'));
-
+        $last_week = date('Y-m-d', strtotime('Monday last week'));
+        $this_week = date('Y-m-d', strtotime('Monday this week'));
+        $next_week = date('Y-m-d', strtotime('Monday next week'));
+        $last_week_formatted = date('M d', strtotime('Monday last week'))."-".date('d', strtotime('Monday last week + 6 days'));
+        $this_week_formatted = date('M d', strtotime('Monday this week'))."-".date('d', strtotime('Monday this week + 6 days'));
+        $next_week_formatted = date('M d', strtotime('Monday next week'))."-".date('d', strtotime('Monday next week + 6 days'));
         if(isset($_GET['start-date'])) {
             $start_date = $_GET['start-date'];
         } else {
-            $start_date = $monday_this_week;
+            $start_date = $this_week;
         }
-
         $client_id = $_GET['client-id'];
-
+        $html = "";
         $client = new Client();
         $result = $client->get_client($client_id);
         if(count($result) == 1) {
-            echo "<img src='../_uploads/".$result[0]['company_logo_large']."' />";
+            $html .= "<img src='../_uploads/".$result[0]['company_logo_large']."' />";
         }
-
-        // $menu = new Menu();
-        // $result = $menu->get_weekly_menu($client_id, $start_date);
         $result = $this->get_weekly_menu($client_id, $start_date);
         $result_count = count($result);
-
-        echo "<ul>";
-        echo    "<li><a href='weekly-menu.php?client-id=$client_id&start-date=$monday_last_week'>$monday_last_week</a></li>";
-        echo    "<li><a href='weekly-menu.php?client-id=$client_id&start-date=$monday_this_week'>$monday_this_week</a></li>";
-        echo    "<li><a href='weekly-menu.php?client-id=$client_id&start-date=$monday_next_week'>$monday_next_week</a></li>";
-        echo "</ul>";
-
-        echo '<br />';
-        echo '<a href="'.WEB_ROOT.'/admin/create-menu.php?client-id='.$client_id.'">Create Menu</a>';
-        echo '<br />';
-        echo '<br />';
-        echo '<br />';
-
+        $html .= "<div class='page_header'>";
+        $html .=    "<ul>";
+        $html .=        "<li><a href='weekly-menu.php?client-id=$client_id&start-date=$last_week'>$last_week_formatted</a></li>";
+        $html .=        "<li><a href='weekly-menu.php?client-id=$client_id&start-date=$this_week'>$this_week_formatted</a></li>";
+        $html .=        "<li><a href='weekly-menu.php?client-id=$client_id&start-date=$next_week'>$next_week_formatted</a></li>";
+        $html .=    "</ul>";
+        $html .= "</div>";
         if($result_count > 0) {
-
             $service_date = null;
             $meal_id = null;
             $menu_items = "";
             for ($i=0; $i < count($result); $i++) { 
-
                 if($result[$i]['service_date'] != $service_date) {
-                    echo '<h1>New Date Group - '.$result[$i]['service_date'].'</h1>';
                     $meal_id = null;
                 }
                 $service_date = $result[$i]['service_date'];
-                
                 if($result[$i]['meal_id'] != $meal_id) {
-                    echo "<br /><br />***********************************<br /><br />";
-                    echo "<h2>New Meal Group</h2>";
-                    echo "<a href='daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=".$result[$i]['meal_id']."'>View Items ></a><br />";
-                    echo $result[$i]['service_date'].'<br />';
-                    echo "Meal: ".$result[$i]['meal_id']." ".$result[$i]['meal_name'].'<br />';
+                    $html .= "<div class='meal_container'>";
+                    $html .=    "<div class='meal_details'>";
+                    $html .=        "<p class='item_status'>".$result[$i]['item_status'].'</p>';
+                    $html .=        "<p class='day_of_the_week'>".date('l', strtotime($result[$i]['service_date'])).'</p>';
+                    $html .=        "<p class='month_and_date'>".date('M d', strtotime($result[$i]['service_date'])).'</p>';
+                    $html .=        "<p class='meal_name'>".$result[$i]['meal_name'].'</p>';
                     $meal_id = null;
                 }
                 $meal_id = $result[$i]['meal_id'];
-                // $menu_items .= $result[$i]['menu_item_name'].'<br />';
-                echo $result[$i]['menu_item_name'].'<br />';
-                // echo $result[$i]['meal_description'].'<br />';
-                // echo $result[$i]['menu_item_id'].'<br />';
-            }
-            echo $menu_items;
-        } else {
-            echo '<p>Sorry, no menu items found.</p>';
-        }
-        
-        echo "<br /><br />***********************************<br /><br />";
-        echo "<a href='".WEB_ROOT."/_actions/send-meal-to-client.php?client-id=$client_id&start-date=$start_date'>Send Meal to Client</a><br />";
-        // echo "<a href='#'>Edit Menu -- TODO Build this page to link to.</a><br />";
+                $html .= '<p class="menu_item_name">'.$result[$i]['menu_item_name'].'</p>';
 
-        // $startDate = 'Mon 2015-03-09';
-        // $endDate = 'Mon 2017-02-05';
-        // $endDate = strtotime($endDate);
-        
-        // for ($i = strtotime('Monday', strtotime($startDate)); $i <= $endDate; $i = strtotime('+1 week', $i)) {
-        //  $monday = date('D Y-m-d', $i);
-        //  $friday = date('D Y-m-d', strtotime($monday . ' + 4 day'));
-     //         echo date("D m-d", strtotime($monday));
-     //         echo ' -- ';
-     //         echo date("D m-d", strtotime($friday));
-     //         echo '<br />';
-        // }
+                // This is messy. There must be a better way.
+
+                if(isset($result[$i+1]['meal_id'])) {
+                    if($result[$i+1]['meal_id'] != $meal_id) {
+                        $html .= "<a href='daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=".$result[$i]['meal_id']."'>View Items ></a><br />";
+                        $html .= "</div>"; // Close meal_details
+                        $html .= "<img width='200' src='".WEB_ROOT."/_uploads/".$result[$i]['menu_image_path']."' />";
+                        $html .= "</div>";
+                    }    
+                } else {
+                    $last_result = count($result)-1;
+                    $html .= "<a href='daily-menu.php?client-id=$client_id&service-date=$service_date&meal-id=".$result[$last_result]['meal_id']."'>View Items ></a><br />";
+                    $html .= "</div>"; // Close meal_details
+                    $html .= "<div class='meal_image'>";
+                    $html .=    "<img width='200' src='".WEB_ROOT."/_uploads/".$result[$last_result]['menu_image_path']."' />";
+                    $html .= "</div>"; // Close meal_image
+                    $html .= "</div>";
+                }
+            }
+            $html .= $menu_items;
+        } else {
+            $html .= '<p>Sorry, no menu items found.</p>';
+        }
+        $html .= "<div class='create_or_send_container'>";
+        $html .=    "<div class='create_or_send_buttons'>";
+        $html .=        '<a href="'.WEB_ROOT.'/admin/create-menu.php?client-id='.$client_id.'">Create Menu </a>';
+        $html .=        "<a href='".WEB_ROOT."/_actions/email-client.php?client-id=$client_id&start-date=$start_date'> Email Client</a><br />";
+        $html .=    "</div>";
+        $html .= "</div>";
+        return $html;
     }
+
+
+
+
 
     public function send_menu_for_client_review ($client_id, $start_date) {
         $user = new User();
         $result = $user->get_client_users($client_id);
         for ($i=0; $i < count($result); $i++) { 
             if($result[$i]['user_type_id'] == 2) {
-                $client_admin_email = $result[$i]['cliet_name'];        
+                $client_admin_email = $result[$i]['user_name'];        
             }
         }
-        
         $end_date = date('Y-m-d', strtotime($start_date.' +6 days'));
         $arguments = [
             2,
@@ -460,7 +464,7 @@ class Menu {
         $query->execute($arguments);
         if ($query->rowCount() > 0 ){
             $link = WEB_ROOT . "/clients/weekly-menu.php?client-id=$client_id&start-date=$start_date";
-            $to_email  = $client_admin_email; // TODO - Get admin email
+            $to_email  = $client_admin_email; 
             $subject = 'Your Weekly Menu is Ready';
             $message = '
                 <html>
@@ -472,7 +476,7 @@ class Menu {
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $headers .= 'From: Green Heart Foods <'.GREEN_HEART_FOODS_ADMIN_EMAIL.'>' . "\r\n";
-            $sent = mail($to, $subject, $message, $headers);
+            $sent = mail($to_email, $subject, $message, $headers);
             if($sent) {
                 echo "Email has been sent";
             } else {
@@ -508,7 +512,7 @@ class Menu {
             $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $headers .= 'From: Green Heart Foods <'.GREEN_HEART_FOODS_ADMIN_EMAIL.'>' . "\r\n";
-            $sent = mail($to, $subject, $message, $headers);
+            $sent = mail($to_email, $subject, $message, $headers);
             if($sent) {
                 echo "Email has been sent";
             } else {
@@ -558,6 +562,7 @@ class Menu {
             $query->execute($arguments);
             $menu_items = $query->fetchAll(PDO::FETCH_ASSOC);
             $number_of_meals = count($menu_items);
+            $menu_image_path = $menu_items[0]['menu_image_path'];
             for ($i=0; $i < count($menu_items); $i++) { 
                 $current_month = date('m', strtotime($service_date));
                 $current_year = date('Y', strtotime($service_date));
@@ -572,6 +577,8 @@ class Menu {
             $current_day = 0;
             $meal_description = "Meal Description";
             $number_of_meals = $meals_per_day;
+            $menu_image_path_orginal = "";
+            $menu_image_path = "<img width='100' src='../_images/menu-image-placeholder.jpg' />";
         }
 
         // The following for loops were just complex enough to not cosolidate into a function. 
@@ -653,7 +660,7 @@ class Menu {
         $html .=                "</select>";
         $html .=            "</div>";
         $html .=            "<div class='menu-image'>";
-        $html .=                "<img width='100' src='../_images/menu-image-placeholder.jpg' />";
+        $html .=                $menu_image_path;
         $html .=                "<input name='menu_image' type='file' />";
         $html .=            "</div>";
         $html .=        "</div>";
@@ -717,6 +724,7 @@ class Menu {
                     <input type="hidden" name="meals_per_day" value="$i" />
                     <input type="hidden" name="client_id" value="$client_id" />
                     <input type="hidden" name="item_status_id" value="1" />
+                    <input type="hidden" name="menu_image_path_orginal" value="$menu_image_path" />
                     <a class="quantity-button subtract">Subtract</a>
                     <a class="quantity-button add">Add</a>
                 </div>

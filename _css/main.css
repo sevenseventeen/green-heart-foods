@@ -36,6 +36,7 @@ h1, h2, h3, h4 {
 	color: #fff;
 	padding: 20px 0 20px 0;
 	margin: 0;
+	overflow: auto;
 }
 
 .main_container {
@@ -48,6 +49,13 @@ h1, h2, h3, h4 {
 	height: 2px;
 	background-color: #84445e;
 	clear: both;
+	margin: 20px 0;
+}
+
+.message {
+	background-color: #ef284f;
+	text-align: center;
+	padding: 20px 0;
 }
 
 
@@ -173,3 +181,83 @@ h1, h2, h3, h4 {
 .edit_client_page .client_form {
 	background-color: #fff;
 }
+
+
+/* Edit Menu Page */ 
+
+.edit_menu_page .main_container {
+	background-color: #0e6552;
+}
+
+.edit_menu_page .menu_form {
+	background-color: #fff;	
+}
+
+
+/* weekly_menu_page */ 
+
+
+.weekly_menu_page .main_container {
+	background-color: #0e6552;
+}
+
+.weekly_menu_page .weekly_menu {
+	background-color: #fff;
+}
+
+.weekly_menu_page .page_header ul {
+	text-indent: 0;
+	padding: 0;
+	display: block;
+	margin: 0 auto;
+	width: 400px;
+}
+
+.weekly_menu_page .page_header li {
+	margin-left: 10px;
+	background-color: #fff;
+	list-style-type: none;
+	display: block;
+	float: left;
+	padding: 10px;
+}
+
+.weekly_menu_page .meal_container {
+	border: 3px solid #ccc;
+	background-color: orange;
+	margin-top: 20px;
+	overflow: auto; /* Scales the container to fit the floats. */
+}
+
+.weekly_menu_page .meal_details {
+	float: left;
+	width: 400px;
+}
+
+.weekly_menu_page .meal_image {
+	float: left;
+}
+
+.weekly_menu_page .create_or_send_container {
+	padding: 20px 0;
+	background-color: #84445e;
+	text-align: center;
+}
+
+.weekly_menu_page .create_or_send_buttons {
+	background-color: red;
+	margin: 0 auto;
+	width: 500px;
+	overflow: auto;
+}
+
+.weekly_menu_page .create_or_send_buttons a {
+	color: #fff;
+	display: block;
+	float: left;
+	background-color: #ff7a17;
+	width: 200px;
+	margin: 0 25px;
+	padding: 20px 0;
+}
+

@@ -1,5 +1,5 @@
 <?php
-	$page_class = 'create_menu_page';
+	$page_class = 'create_and_edit_menu create_menu_page';
 	$page_title_detail = 'Create Menu';
 	require_once("../_config/config.php");
     require_once(SERVER_ROOT . "/_includes/restrict-access-green-heart-foods.php");

@@ -77,52 +77,53 @@
 
 <h3>admin/edit-client.php</h3>
 <ul>
-	<li>Add hidden inputs for image paths</li>
-	<li>Add logic for replacing or keeping existing image paths.</li>
-	<li>Add static page content</li>
-	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
-	<li>Review, clean and comment code</li>
+	<strike><li>Add hidden inputs for image paths</li></strike>
+	<strike><li>Add logic for replacing or keeping existing image paths.</li></strike>
+	<strike><li>Add static page content</li></strike>
+	<strike><li>Review error message placement</li></strike>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
+	<strike><li>Review, clean and comment code</li></strike>
 </ul>
 
 
 <h3>admin/edit-daily-menu.php</h3>
 <ul>
-	<li>Write logic for images</li>
-	<li>Add static page content</li>
-	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
-	<li>Review, clean and comment code</li>
+	<strike><li>Write logic for images</li></strike>
+	<strike><li>Add static page content</li></strike>
+	<strike><li>Review error message placement</li></strike>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
+	<strike><li>Review, clean and comment code</li></strike>
 </ul>
 
 <h3>admin/index.php</h3>
 <ul>
-	<li>Done, nothng needed from Josh Reiling</li>
+	<strike><li>Done, nothng needed from Josh Reiling</li></strike>
 </ul>
 
 <h3>admin/weekly-menu.php</h3>
 <ul>
-	<li>Determine page context</li>
-	<li>Format dates week dates</li>
-	<li>Move ‘create menu’ to bottom</li>
-	<li>Add ‘send to client’ button to bottom</li>
-	<li>Hook up email script to send link to admin email in database.</li>
-	<li>Add status message of sent for review</li>
-	<li>Add status message of sent for approved</li>
-	<li>Add image to each meal group</li>
-	<li>Move view items to bottom of meal group data</li>
-	<li>Add static page content</li>
-	<li>Review error message placement</li>
-	<li>Add global structure </li>
-	<li>Add div hooks for css</li>
-	<li>Review, clean and comment code</li>
+	<strike><li>Determine page context</li></strike>
+	<strike><li>Format dates week dates</li></strike>
+	<strike><li>Move ‘create menu’ to bottom</li></strike>
+	<strike><li>Add ‘send to client’ button to bottom</li></strike>
+	<strike><li>Hook up email script to send link to admin email in database.</li></strike>
+	<strike><li>Add status message of sent for review</li></strike>
+	<strike><li>Add status message of sent for approved</li></strike>
+	<strike><li>Add image to each meal group</li></strike>
+	<strike><li>Move view items to bottom of meal group data</li></strike>
+	<strike><li>Add static page content</li></strike>
+	<strike><li>Review error message placement</li></strike>
+	<strike><li>Add global structure </li></strike>
+	<strike><li>Add div hooks for css</li></strike>
+	<strike><li>Review, clean and comment code</li></strike>
+	<li>Test email functionality on live server.</li>
 </ul>
 
 <h3>clients/index.php</h3>
 <ul>
-	<li>Done, nothng needed from Josh Reiling</li>
+	<strike><li>Done, nothng needed from Josh Reiling</li></strike>
 </ul>
 
 <h3>clients/daily-menu.php (Client Admin)</h3>
@@ -186,6 +187,11 @@
 	<strike><li>Add div hooks for css</li></strike>
 	<li>Review, clean and comment code</li>
 	<li>Logout after browser close?</li>
+</ul>
+
+<h3>Global</h3>
+<ul>
+	<li>Insert exit() after each Messages:add() and header redirect</li>
 </ul>
 
 

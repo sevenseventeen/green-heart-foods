@@ -12,9 +12,7 @@
 
 <h1>Clients</h1>
 
-<div class="message">
-	<?php Messages::render(); ?>
-</div>
+<?php Messages::render(); ?>
 
 <div class="client_list">
 	<?php 

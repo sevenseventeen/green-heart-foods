@@ -6,20 +6,20 @@ $(document).ready(function() {
 
 	*/
 
-	$('body.create_menu_page').ready(function(event) {
+	$('body.create_and_edit_menu').ready(function(event) {
 		set_days_in_month();
 	});
 	
-	$('.create_menu_page select.month').change(function(event){
+	$('.create_and_edit_menu select.month').change(function(event){
 		set_days_in_month();
 	});
 
-	$('.create_menu_page .price-per-order-input').keyup(function(event){
+	$('.create_and_edit_menu .price-per-order-input').keyup(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		update_item_price(current_class);
 	});
 
-	$('.create_menu_page .serves-input').keyup(function(event){
+	$('.create_and_edit_menu .serves-input').keyup(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		var input_value = $(this).val();
 		if(Math.floor(input_value) == input_value && $.isNumeric(input_value)) {
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		update_item_price(current_class);
 	});
 
-	$('.create_menu_page .quantity-button').click(function(event){
+	$('.create_and_edit_menu .quantity-button').click(function(event){
 		var current_class = get_current_menu_item_class($(this));
 		var quantity = $(current_class+' .quantity').html();
 		if($(this).hasClass('add')) {
@@ -44,11 +44,11 @@ $(document).ready(function() {
 		update_item_price(current_class);
 	});
 
-	$('.create_menu_page .preview_menu_button').click(function(event){
+	$('.create_and_edit_menu .preview_menu_button').click(function(event){
 		$('.create_menu_form').submit();
 	});
 
-	$('.create_menu_page select.server').change(function(event) {
+	$('.create_and_edit_menu select.server').change(function(event) {
 		var image_path = $('option:selected', this).attr('data-server-image-path');
 		console.log(image_path);
 		$('.server-image').attr('src', '../'+image_path);
