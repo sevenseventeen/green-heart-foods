@@ -12,6 +12,7 @@
 <ul>
 	<li>What happens when trying to create a menu for a day and meal which already has a menu.</li>
 	<li>The feature sets document calls for two version of the client view for the daily menu. I don’t think this was in the original scope, can we confirm that it’s needed?</li>
+	<li>How long should a users logged in status persist?</li>
 </ul>
 
 <h3>admin/clients.php</h3>
@@ -128,8 +129,8 @@
 
 <h3>clients/daily-menu.php (Client Admin)</h3>
 <ul>
-	<li>Determine page context</li>
-	<li>Convert checkbox results to text (first letter uppercase and remove underscore);</li>
+	<strike><li>Determine page context</li></strike>
+	<strike><li>Convert checkbox results to text (first letter uppercase and remove underscore);</li></strike>
 	<li>Hook up subtract and add buttons</li>
 	<li>Add static page content</li>
 	<li>Review error message placement</li>
@@ -186,17 +187,14 @@
 	<strike><li>Add global structure </li></strike>
 	<strike><li>Add div hooks for css</li></strike>
 	<li>Review, clean and comment code</li>
-	<li>Logout after browser close?</li>
+</ul>
+
+<h3>root/index.php</h3>
+<ul>
+	<strike><li>Done, nothing needed from Josh Rehling</li></strike>
 </ul>
 
 <h3>Global</h3>
 <ul>
 	<li>Insert exit() after each Messages:add() and header redirect</li>
-</ul>
-
-
-
-<h3>root/index.php</h3>
-<ul>
-	<li>Done, nothing needed from Josh Rehling</li>
 </ul>

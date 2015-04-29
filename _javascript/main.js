@@ -14,34 +14,26 @@ $(document).ready(function() {
 		set_days_in_month();
 	});
 
-	$('.create_and_edit_menu .price-per-order-input').keyup(function(event){
+	$('.create_and_edit_menu .price_per_order_input').keyup(function(event){
+		console.log("PPO");
 		var current_class = get_current_menu_item_class($(this));
-		update_item_price(current_class);
+		update_item_summary(current_class);
 	});
 
-	$('.create_and_edit_menu .serves-input').keyup(function(event){
+	$('.create_and_edit_menu .servings_per_order_input').keyup(function(event){
 		var current_class = get_current_menu_item_class($(this));
-		var input_value = $(this).val();
-		if(Math.floor(input_value) == input_value && $.isNumeric(input_value)) {
-			$(current_class+' .serves-output').html(input_value);
-		} else if (input_value === "") {
-			$(current_class+' .serves-output').html(0);
-		}
-		update_item_price(current_class);
+		// var input_value = $(this).val();
+		// if(Math.floor(input_value) == input_value && $.isNumeric(input_value)) {
+		// 	$(current_class+' .serves-output').html(input_value);
+		// } else if (input_value === "") {
+		// 	$(current_class+' .serves-output').html(0);
+		// }
+		update_item_summary(current_class);
 	});
 
-	$('.create_and_edit_menu .quantity-button').click(function(event){
-		var current_class = get_current_menu_item_class($(this));
-		var quantity = $(current_class+' .quantity').html();
-		if($(this).hasClass('add')) {
-			quantity++;
-		} else {
-			quantity--;
-		}
-		if(quantity < 0) quantity = 0;
-		$(current_class+' .quantity').html(quantity);
-		$(current_class+' .order-quantity').val(quantity);
-		update_item_price(current_class);
+	$('.create_and_edit_menu .quantity_button').click(function(event){
+		var target = $(this);
+		handle_quantity_button_click(target);
 	});
 
 	$('.create_and_edit_menu .preview_menu_button').click(function(event){
@@ -59,6 +51,11 @@ $(document).ready(function() {
 	Daily Menu Page 
 
 	*/
+
+	$('.daily_menu_page .quantity_button').click(function(event){
+		var target = $(this);
+		handle_quantity_button_click(target);
+	});
 
 	$('.like-heart').click(function(event) {
 		//TODO Fix this bug.
@@ -79,8 +76,23 @@ $(document).ready(function() {
 		var meal_id = $(this).val();
 		document.location = '../admin/daily-menu.php?client-id='+client_id+'&service-date='+service_date+'&meal-id='+meal_id;
 	});
-
 });
+
+
+function handle_quantity_button_click(target) {
+	console.log("click");
+	var current_class = get_current_menu_item_class(target);
+	var total_orders_for_item = $(current_class+' .total_orders_for_item').html();
+	if(target.hasClass('add')) {
+		total_orders_for_item++;
+	} else {
+		total_orders_for_item--;
+	}
+	if(total_orders_for_item < 0) total_orders_for_item = 0;
+	$(current_class+' .total_orders_for_item').html(total_orders_for_item);
+	$(current_class+' .total_orders_for_item_hidden').val(total_orders_for_item);
+	update_item_summary(current_class);
+}
 
 function get_current_menu_item_class(element) {
 	var increment_id = element.closest('.menu-item').attr('data-increment-id');
@@ -88,30 +100,33 @@ function get_current_menu_item_class(element) {
 	return current_class;
 }
 
-function update_item_price(current_class) {
-	var quantity = Number($(current_class+' .quantity').html());
-	var price_per_order = Number($(current_class+' .price-per-order-input').val());
-	var total_number_of_orders = 0;
-	var total_people_served = 0;
-	var total_cost = 0;
-	if(isNaN(quantity) || isNaN(price_per_order)) {
+function update_item_summary(current_class) {
+	var order_count_for_item = Number($(current_class+' .total_orders_for_item').html());
+	var price_per_order = Number($(current_class+' .price_per_order_input').val());
+	var servings_per_order = Number($(current_class+' .servings_per_order_input').val());
+	var total_orders_for_menu = 0;
+	var total_served_for_menu = 0;
+	var total_cost_for_menu = 0;
+	if(isNaN(order_count_for_item) || isNaN(price_per_order)) {
 		return;
 	} else {
-		var total = quantity*price_per_order;
-		$(current_class+' .price-per-order-output').html(total)
+		var total_cost_for_item = order_count_for_item*price_per_order;
+		var servings_count_for_item = order_count_for_item*servings_per_order;
+		$(current_class+' .total_cost_for_item').html(total_cost_for_item);
+		$(current_class+' .total_served_for_item').html(servings_count_for_item);
 	}
-	$('.quantity').each(function(event){
-		total_number_of_orders += Number($(this).html());
+	$('.total_orders_for_item').each(function(event){
+		total_orders_for_menu += Number($(this).html());
 	});
-	$('.serves-output').each(function(event){
-		total_people_served += Number($(this).html());
+	$('.total_served_for_item').each(function(event){
+		total_served_for_menu += Number($(this).html());
 	});
-	$('.price-per-order-output').each(function(event){
-		total_cost += Number($(this).html());
+	$('.total_cost_for_item').each(function(event){
+		total_cost_for_menu += Number($(this).html());
 	});
-	$('.total-number-of-orders').html(total_number_of_orders);
-	$('.total-people-served').html(total_people_served);
-	$('.total-cost').html(total_cost);
+	$('.total_orders_for_menu').html(total_orders_for_menu);
+	$('.total_served_for_menu').html(total_served_for_menu);
+	$('.total_cost_for_menu').html("$"+total_cost_for_menu);
 
 }
 

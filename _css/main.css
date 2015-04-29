@@ -22,7 +22,7 @@ footer {
 	background-color: #34b67d;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, p {
 	margin: 0;
 	padding: 0;
 }
@@ -144,7 +144,7 @@ h1, h2, h3, h4 {
 }
 
 .daily_menu_page .order_summary {
-	color: #fff;
+	/*color: #fff;*/
 	text-align: center;
 	background-color: #84445e;
 	padding: 40px 0;
@@ -261,3 +261,19 @@ h1, h2, h3, h4 {
 	padding: 20px 0;
 }
 
+
+
+/* Daily Menu Page */
+
+
+
+.daily_menu_page .quantity_button {
+	margin-right: 10px;
+}
+
+.daily_menu_page .special_requests {
+	display: block;
+	width: 350px;
+	height: 50px;
+	margin: 20px auto;
+}

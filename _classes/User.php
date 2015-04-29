@@ -12,16 +12,15 @@ class User {
     /* Login for Clients TODO - Combine the login functions */
 
     public function login() {
+        switch ($_POST['context']) {
+            case 'green_heart_foods':
+                $redirect_path = WEB_ROOT.'/admin/login.php';
+                break;
+            case 'client':
+                $redirect_path = WEB_ROOT.'/clients/login.php';
+                break;
+        } 
         if (!empty($_POST['user_name']) && !empty($_POST['password'])) {
-            switch ($_POST['context']) {
-                case 'green_heart_foods':
-                    $redirect_path = '../admin/login.php';
-                    break;
-                case 'clients':
-                    $redirect_path = '../clients/login.php';
-                    break;
-            } 
-
             $database = new Database();
             $database_connection = $database->connect();
             if ($database_connection) {
@@ -42,30 +41,34 @@ class User {
                         case 1:
                             $_SESSION['green_heart_foods_logged_in'] = 1;
                             header("Location: ../admin/clients.php");
-                            // echo './admin/clients.php';
+                            exit();
                             break;
                         case 2:
                             $_SESSION['client_admin_logged_in'] = 1;
                             header("Location: ../clients/weekly-menu.php?client-id=$client_id");
+                            exit();
                             break;
                         case 3:
                             $_SESSION['client_general_logged_in'] = 1;
                             header("Location: ../clients/weekly-menu.php?client-id=$client_id");
+                            exit();
                             break;
                     }
                     Messages::add('Logged In');
                 } else {
                     Messages::add('Sorry, there was an error with that user name/password combination.');
-                    header('Location: '.$redirect_path); //TODO - Where should these go?
+                    header('Location: '.$redirect_path);
+                    exit();
                 }
-                
             } else {
                 Messages::add('Sorry, the was an error connecting to the database.'); 
-                header('Location: '.$redirect_path); //TODO - Where should these go?
+                header('Location: '.$redirect_path);
+                exit();
             }
         } else {
             Messages::add('Either the user name or password is missing, please try again.'); 
-            header('Location: '.$redirect_path); //TODO - Where should these go?
+            header('Location: '.$redirect_path);
+            exit();
         }
     }
 

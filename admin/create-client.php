@@ -16,9 +16,7 @@
 	<h2>Create Client</h2>
 </div>
 
-<div class="message">
-	<?php Messages::render(); ?>
-</div>
+<?php Messages::render(); ?>
 
 <div class="client_form">
 	<?php echo $client_form; ?>
